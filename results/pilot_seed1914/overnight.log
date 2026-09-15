@@ -1,0 +1,85 @@
+[2026-09-13 02:15:01] ==============================================================================
+[2026-09-13 02:15:01] Stage-A pilot: reviews x xlmr_base x seed 1914
+[2026-09-13 02:15:01] clean_n=20000 ratio=0.5 caps=(3,6) eval_n=400 conditions=['B0', 'B1', 'B2', 'B3', 'B4']
+[2026-09-13 02:15:01] ==============================================================================
+[2026-09-13 02:15:01] wrote clean subsample: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot/clean_train_subsample.csv (20000 rows of /home/mudryi/phd_projects/xml-roberta-finetune-reviews/cross_domain_uk_reviews/train_reviews.csv)
+[2026-09-13 02:15:01] START train_B0  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot/logs/train_B0.log)
+[2026-09-13 02:22:48] DONE  train_B0 in 7.8 min
+[2026-09-13 02:22:48] baseline sanity check OK: B0 eval macro-F1 = 0.484
+[2026-09-13 02:22:48] START generate_B1  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot/logs/generate_B1.log)
+[2026-09-13 02:23:14] DONE  generate_B1 in 0.4 min
+[2026-09-13 02:23:14] START generate_B2  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot/logs/generate_B2.log)
+[2026-09-13 02:29:28] DONE  generate_B2 in 6.2 min
+[2026-09-13 02:29:28] START generate_B3  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot/logs/generate_B3.log)
+[2026-09-13 02:34:46] DONE  generate_B3 in 5.3 min
+[2026-09-13 02:34:46] START generate_B4  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot/logs/generate_B4.log)
+[2026-09-13 02:59:49] DONE  generate_B4 in 25.0 min
+[2026-09-13 02:59:49] START train_B1  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot/logs/train_B1.log)
+[2026-09-13 03:11:22] DONE  train_B1 in 11.6 min
+[2026-09-13 03:11:22] START train_B2  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot/logs/train_B2.log)
+[2026-09-13 03:22:32] DONE  train_B2 in 11.2 min
+[2026-09-13 03:22:32] START train_B3  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot/logs/train_B3.log)
+[2026-09-13 03:34:03] DONE  train_B3 in 11.5 min
+[2026-09-13 03:34:03] START train_B4  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot/logs/train_B4.log)
+[2026-09-13 03:45:32] DONE  train_B4 in 11.5 min
+[2026-09-13 03:45:32] START eval_B0_textfooler  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot/logs/eval_B0_textfooler.log)
+[2026-09-13 03:48:42] DONE  eval_B0_textfooler in 3.2 min
+[2026-09-13 03:48:42] START eval_B1_textfooler  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot/logs/eval_B1_textfooler.log)
+[2026-09-13 03:51:29] DONE  eval_B1_textfooler in 2.8 min
+[2026-09-13 03:51:29] START eval_B2_textfooler  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot/logs/eval_B2_textfooler.log)
+[2026-09-13 03:54:26] DONE  eval_B2_textfooler in 3.0 min
+[2026-09-13 03:54:26] START eval_B3_textfooler  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot/logs/eval_B3_textfooler.log)
+[2026-09-13 03:57:37] DONE  eval_B3_textfooler in 3.2 min
+[2026-09-13 03:57:37] START eval_B4_textfooler  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot/logs/eval_B4_textfooler.log)
+[2026-09-13 04:00:48] DONE  eval_B4_textfooler in 3.2 min
+[2026-09-13 04:00:48] START eval_B0_textfooler_wsd  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot/logs/eval_B0_textfooler_wsd.log)
+[2026-09-13 04:10:23] DONE  eval_B0_textfooler_wsd in 9.6 min
+[2026-09-13 04:10:23] START eval_B1_textfooler_wsd  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot/logs/eval_B1_textfooler_wsd.log)
+[2026-09-13 04:18:54] DONE  eval_B1_textfooler_wsd in 8.5 min
+[2026-09-13 04:18:54] START eval_B2_textfooler_wsd  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot/logs/eval_B2_textfooler_wsd.log)
+[2026-09-13 04:28:07] DONE  eval_B2_textfooler_wsd in 9.2 min
+[2026-09-13 04:28:07] START eval_B3_textfooler_wsd  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot/logs/eval_B3_textfooler_wsd.log)
+[2026-09-13 04:37:36] DONE  eval_B3_textfooler_wsd in 9.5 min
+[2026-09-13 04:37:36] START eval_B4_textfooler_wsd  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot/logs/eval_B4_textfooler_wsd.log)
+[2026-09-13 04:47:12] DONE  eval_B4_textfooler_wsd in 9.6 min
+[2026-09-13 04:47:12] START eval_B0_bert_attack  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot/logs/eval_B0_bert_attack.log)
+[2026-09-13 04:51:00] DONE  eval_B0_bert_attack in 3.8 min
+[2026-09-13 04:51:00] START eval_B1_bert_attack  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot/logs/eval_B1_bert_attack.log)
+[2026-09-13 04:54:40] DONE  eval_B1_bert_attack in 3.7 min
+[2026-09-13 04:54:40] START eval_B2_bert_attack  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot/logs/eval_B2_bert_attack.log)
+[2026-09-13 04:58:31] DONE  eval_B2_bert_attack in 3.8 min
+[2026-09-13 04:58:31] START eval_B3_bert_attack  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot/logs/eval_B3_bert_attack.log)
+[2026-09-13 05:02:04] DONE  eval_B3_bert_attack in 3.6 min
+[2026-09-13 05:02:04] START eval_B4_bert_attack  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot/logs/eval_B4_bert_attack.log)
+[2026-09-13 05:05:52] DONE  eval_B4_bert_attack in 3.8 min
+[2026-09-13 05:05:52] START aggregate  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot/logs/aggregate.log)
+[2026-09-13 05:05:53] DONE  aggregate in 0.0 min
+[2026-09-13 05:05:53] ==============================================================================
+[2026-09-13 05:05:53] PILOT COMPLETE
+[2026-09-13 05:05:53]   train_B0: ok
+[2026-09-13 05:05:53]   baseline_sanity_check: ok
+[2026-09-13 05:05:53]   generate_B1: ok
+[2026-09-13 05:05:53]   generate_B2: ok
+[2026-09-13 05:05:53]   generate_B3: ok
+[2026-09-13 05:05:53]   generate_B4: ok
+[2026-09-13 05:05:53]   train_B1: ok
+[2026-09-13 05:05:53]   train_B2: ok
+[2026-09-13 05:05:53]   train_B3: ok
+[2026-09-13 05:05:53]   train_B4: ok
+[2026-09-13 05:05:53]   eval_B0_textfooler: ok
+[2026-09-13 05:05:53]   eval_B1_textfooler: ok
+[2026-09-13 05:05:53]   eval_B2_textfooler: ok
+[2026-09-13 05:05:53]   eval_B3_textfooler: ok
+[2026-09-13 05:05:53]   eval_B4_textfooler: ok
+[2026-09-13 05:05:53]   eval_B0_textfooler_wsd: ok
+[2026-09-13 05:05:53]   eval_B1_textfooler_wsd: ok
+[2026-09-13 05:05:53]   eval_B2_textfooler_wsd: ok
+[2026-09-13 05:05:53]   eval_B3_textfooler_wsd: ok
+[2026-09-13 05:05:53]   eval_B4_textfooler_wsd: ok
+[2026-09-13 05:05:53]   eval_B0_bert_attack: ok
+[2026-09-13 05:05:53]   eval_B1_bert_attack: ok
+[2026-09-13 05:05:53]   eval_B2_bert_attack: ok
+[2026-09-13 05:05:53]   eval_B3_bert_attack: ok
+[2026-09-13 05:05:53]   eval_B4_bert_attack: ok
+[2026-09-13 05:05:53] metrics table: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot_metrics.md
+[2026-09-13 05:05:53] ==============================================================================

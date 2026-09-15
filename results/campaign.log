@@ -1,0 +1,37 @@
+[2026-09-13 19:41:49] ==============================================================================
+[2026-09-13 19:41:49] CAMPAIGN : 15 stage(s)
+[2026-09-13 19:41:49] ==============================================================================
+[2026-09-13 19:41:49] [1/15] START S1_main_seed1914 -- Main grid B0-B5, seed 1914 (adds the argmin control B5)
+[2026-09-13 19:41:49]             log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/campaign_logs/S1_main_seed1914.log
+[2026-09-13 23:15:31] ==============================================================================
+[2026-09-13 23:15:31] CAMPAIGN : 15 stage(s)
+[2026-09-13 23:15:31] ==============================================================================
+[2026-09-13 23:15:31] [1/15] START S1_main_seed1914 -- Main grid B0-B5, seed 1914 (adds the argmin control B5)
+[2026-09-13 23:15:31]             log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/campaign_logs/S1_main_seed1914.log
+[2026-09-14 03:37:48] [1/15] DONE  S1_main_seed1914 in 4.4 h
+[2026-09-14 03:37:48] [2/15] START S1_main_seed2024 -- Main grid B0-B5, seed 2024 (adds the argmin control B5)
+[2026-09-14 03:37:48]             log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/campaign_logs/S1_main_seed2024.log
+[2026-09-14 11:16:21] [2/15] DONE  S1_main_seed2024 in 7.6 h
+[2026-09-14 11:16:21] [3/15] START S1_main_seed7 -- Main grid B0-B5, seed 7 (adds the argmin control B5)
+[2026-09-14 11:16:21]             log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/campaign_logs/S1_main_seed7.log
+[2026-09-14 20:32:39] [3/15] DONE  S1_main_seed7 in 9.3 h
+[2026-09-14 20:32:39] [4/15] START S2_mlm_seed1914 -- MLM-distribution conditions B6/B7, seed 1914 (completes RQ4)
+[2026-09-14 20:32:39]             log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/campaign_logs/S2_mlm_seed1914.log
+[2026-09-15 00:09:43] [4/15] DONE  S2_mlm_seed1914 in 3.6 h
+[2026-09-15 00:09:43] [5/15] START S2_mlm_seed2024 -- MLM-distribution conditions B6/B7, seed 2024 (completes RQ4)
+[2026-09-15 00:09:43]             log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/campaign_logs/S2_mlm_seed2024.log
+[2026-09-15 03:12:14] [5/15] DONE  S2_mlm_seed2024 in 3.0 h
+[2026-09-15 03:12:14] [6/15] START S2_mlm_seed7 -- MLM-distribution conditions B6/B7, seed 7 (completes RQ4)
+[2026-09-15 03:12:14]             log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/campaign_logs/S2_mlm_seed7.log
+[2026-09-15 06:12:23] [6/15] DONE  S2_mlm_seed7 in 3.0 h
+[2026-09-15 06:12:23] [7/15] START S3_pool_seed1914 -- Pool-size ablation 10x20 (B3/B4/B5), seed 1914
+[2026-09-15 06:12:23]             log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/campaign_logs/S3_pool_seed1914.log
+[2026-09-15 12:03:06] [7/15] DONE  S3_pool_seed1914 in 5.8 h
+[2026-09-15 12:03:06] [8/15] START S4_ratio_r0.25 -- Augmentation ratio r=0.25 (B2/B3/B4), seed 1914
+[2026-09-15 12:03:06]             log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/campaign_logs/S4_ratio_r0.25.log
+[2026-09-15 16:05:47] [8/15] DONE  S4_ratio_r0.25 in 4.0 h
+[2026-09-15 16:05:47] [9/15] START S4_ratio_r1.0 -- Augmentation ratio r=1.0 (B2/B3/B4), seed 1914
+[2026-09-15 16:05:47]             log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/campaign_logs/S4_ratio_r1.0.log
+[2026-09-15 20:44:36] [9/15] DONE  S4_ratio_r1.0 in 4.6 h
+[2026-09-15 20:44:36] [10/15] START S5_full78k -- Full 78k train split instead of the 20k subsample (B0/B2/B3/B4)
+[2026-09-15 20:44:36]             log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/campaign_logs/S5_full78k.log

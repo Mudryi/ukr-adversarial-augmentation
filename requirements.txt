@@ -1,0 +1,12 @@
+# Reuse ukr-synonym-robustness as a local dependency for attacks/WSD/synonym-dict/morphology:
+#   pip install -e ../ukr-synonym-robustness
+#
+# New deps for this project (pin versions before first real run -- see CURRENT_STATE.md
+# section 7 re: unpinned deps in the sibling fine-tune repos).
+torch
+transformers
+datasets
+wandb
+PyYAML
+pandas
+scikit-learn

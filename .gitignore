@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.pyc
+
+# Model checkpoints (huge, regenerable via scripts/train_augmented.py)
+results/**/checkpoints/
+
+# Bulk augmentation/attack outputs (large, regenerable via scripts + configs)
+results/**/augmented/
+results/**/logs/
+results/**/*.jsonl
+results/**/clean_train_subsample.csv
+*.safetensors

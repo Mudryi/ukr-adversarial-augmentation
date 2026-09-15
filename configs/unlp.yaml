@@ -1,0 +1,19 @@
+# UNLP-2025 manipulation detection (binary). Mirrors ukr-synonym-robustness/configs/unlp.yaml.
+# Note: use unlp_sharedtask_dataset splits below, NOT xml-roberta-finetune_unlp/train.parquet
+# (that's a different, raw shared-task release -- see CURRENT_STATE.md section 1).
+dataset: unlp
+nclasses: 2
+
+train-path: /home/mudryi/phd_projects/xml-roberta-finetune-reviews/unlp_sharedtask_dataset/train.csv
+eval-path: /home/mudryi/phd_projects/xml-roberta-finetune-reviews/unlp_sharedtask_dataset/eval.csv
+test-path: /home/mudryi/phd_projects/xml-roberta-finetune-reviews/unlp_sharedtask_dataset/test.csv
+
+models:
+  ukr_roberta:
+    hf-name: youscan/ukr-roberta-base
+    b0-checkpoint: /home/mudryi/phd_projects/xml-roberta-finetune-reviews/trained_models/1ozc/model_1ozc_14
+  xlmr_base:
+    hf-name: xlm-roberta-base
+    b0-checkpoint: /home/mudryi/phd_projects/xml-roberta-finetune-reviews/trained_models/p0g9/model_p0g9_14
+
+# TODO: verify these B0 checkpoints reproduce results/summary_tables.md before trusting them.

@@ -1,0 +1,41 @@
+{
+  "config": {
+    "dataset": "reviews",
+    "model": "xlmr_base",
+    "seed": 7,
+    "clean_n": 20000,
+    "ratio": 0.5,
+    "max_tokens": 3,
+    "max_candidates": 6,
+    "eval_n": 1500,
+    "num_epochs": 4,
+    "batch_size": 32,
+    "lr": 2e-05,
+    "grad_accum_steps": 2,
+    "eval_every": 200,
+    "eval_limit": null,
+    "early_stopping": 6,
+    "conditions": "B6,B7",
+    "variant": "",
+    "min_baseline_macro_f1": 0.28,
+    "fasttext_path": "/home/mudryi/phd_projects/bert_attack_uk/fasttext_uk_cbow/cbow.uk.300.bin",
+    "mlm_model": null,
+    "skip_bert_attack": false,
+    "dry_run": false,
+    "pilot_root": "results/pilot_seed7",
+    "results_root": "results"
+  },
+  "steps": {
+    "generate_B6": "ok",
+    "generate_B7": "ok",
+    "train_B6": "ok",
+    "train_B7": "ok",
+    "eval_B6_textfooler": "ok",
+    "eval_B7_textfooler": "ok",
+    "eval_B6_textfooler_wsd": "ok",
+    "eval_B7_textfooler_wsd": "ok",
+    "eval_B6_bert_attack": "ok",
+    "eval_B7_bert_attack": "ok"
+  },
+  "updated": "2026-09-15T06:12:20.926773"
+}

@@ -1,0 +1,17 @@
+/home/mudryi/phd_projects/ukr-synonym-robustness/dev_env/bin/python3 scripts/run_pilot.py --dataset reviews --model xlmr_base --eval-n 1500 --num-epochs 4 --seed 1914 --pilot-root results/pilot_full78k --variant full78k --clean-n 78146 --conditions B0,B2,B3,B4
+
+[2026-09-15 20:44:37] ==============================================================================
+[2026-09-15 20:44:37] Stage-A pilot: reviews x xlmr_base x seed 1914
+[2026-09-15 20:44:37] clean_n=78146 ratio=0.5 caps=(3,6) eval_n=1500 conditions=['B0', 'B2', 'B3', 'B4']
+[2026-09-15 20:44:37] ==============================================================================
+[2026-09-15 20:44:37] wrote clean subsample: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot_full78k/clean_train_subsample.csv (78146 rows of /home/mudryi/phd_projects/xml-roberta-finetune-reviews/cross_domain_uk_reviews/train_reviews.csv)
+[2026-09-15 20:44:37] START train_B0  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot_full78k/logs/train_B0.log)
+[2026-09-15 20:55:52] DONE  train_B0 in 11.2 min
+[2026-09-15 20:55:52] baseline sanity check OK: B0 eval macro-F1 = 0.523
+[2026-09-15 20:55:52] START generate_B2  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot_full78k/logs/generate_B2.log)
+[2026-09-15 21:15:38] DONE  generate_B2 in 19.8 min
+[2026-09-15 21:15:38] START generate_B3  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot_full78k/logs/generate_B3.log)
+[2026-09-15 21:35:56] DONE  generate_B3 in 20.3 min
+[2026-09-15 21:35:56] START generate_B4  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot_full78k/logs/generate_B4.log)
+[2026-09-15 23:04:46] DONE  generate_B4 in 88.8 min
+[2026-09-15 23:04:46] START train_B2  (log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/pilot_full78k/logs/train_B2.log)
