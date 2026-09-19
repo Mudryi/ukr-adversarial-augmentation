@@ -10,40 +10,42 @@ what this project built), and [`RESEARCH_PLAN.md`](RESEARCH_PLAN.md) for the res
 training conditions, metrics, staged plan, and **results**. The full narrative version of the
 plan this was distilled from is `article_plan.md` (in this folder).
 
-## Status — 7 of 15 campaign stages done (2026-09-15)
+## Status — campaign COMPLETE (15/15 stages, 78.1 h, 2026-09-17)
 
-XLM-R + UA Reviews, seeds 1914/2024/7, conditions B0–B7, each attacked by TextFooler,
-WSD-TextFooler and BERT-Attack. **These supersede the single-seed Stage-A pilot.**
+XLM-R + UA Reviews across 3 seeds for the main grid, plus ratio, full-data, pool-size and
+cross-dataset/architecture ablations. **All of this supersedes the single-seed Stage-A pilot.**
 
-- **The anti-adversarial control settles RQ3.** B5 — same candidate pool, but picking the
-  *least* confidence-reducing substitution — is far worse than no augmentation at all
-  (+0.169 cASR vs baseline, 3/3 seeds, p < 0.0001). The *direction* of adversarial selection
-  is the mechanism, not the act of perturbing training data.
-- **SAAA (B4) is the best condition, and the pilot had it backwards.** B4 improves on
-  baseline in **every** seed (mean cASR 0.296 vs 0.387) with a seed range of 0.020. Plain
-  adversarial selection (B3) wins on only 2/3 seeds with a range of 0.152 — wider than its
-  own advantage. Sense filtering buys *reliability*.
-- **Why it works** (pool ablation): B3 and B4 are indistinguishable at small candidate pools
-  (p = 1.00 at 3×6) but diverge sharply when the adversarial search gets room (−0.068,
-  p < 0.0001 at 10×20). The WSD filter is a safeguard on search width — it blocks the
-  meaning-destroying substitutions a wider search turns up.
-- **RQ4 answered in both directions, and it is a negative.** Each augmentation family helps
-  only against its own attack family: B4 is best against TextFooler and *worse* than baseline
-  against BERT-Attack, while the MLM-based B7 is the only condition that beats baseline
-  against BERT-Attack (3/3 seeds) and does nothing against TextFooler.
-- **"Naive augmentation hurts" did not replicate** (B1 vs B0 pooled p = 0.43) — that pilot
-  finding was seed noise.
-- **No clean-performance cost**: accuracy 0.763–0.778, eval macro-F1 0.484–0.503 throughout.
+**Claimable (3 seeds):**
 
-Full numbers and caveats: `RESEARCH_PLAN.md` → "Campaign results". Tables:
-`results/pilot_metrics_by_seed.md`, `results/pilot_metrics_paired.csv`.
+- **The control settles the mechanism.** B5 — same candidate pool, but picking the *least*
+  confidence-reducing substitution — is far worse than no augmentation at all (+0.169 cASR,
+  3/3 seeds, p < 0.0001). The *direction* of adversarial selection is what buys robustness.
+- **SAAA (B4) is the best and most reliable condition**: beats baseline in every seed
+  (mean cASR 0.296 vs 0.387) with a seed range of 0.020, against B3's 0.152 — wider than
+  B3's own advantage. Sense filtering buys *reliability*; it does **not** buy a lower mean
+  than B3 (only 1/3 seeds), and the write-up should not claim it does.
+- **RQ4 is negative in both directions.** Each augmentation family helps only against its own
+  attack family: B4 is best against TextFooler and worse than baseline against BERT-Attack,
+  while MLM-based B7 is the only condition beating baseline under BERT-Attack (3/3 seeds) and
+  does nothing against TextFooler.
+- **No clean-performance cost** anywhere: accuracy 0.763–0.778, eval macro-F1 0.484–0.503.
+- **Retracted from the pilot:** "naive augmentation hurts" did not replicate (p = 0.43).
 
-## Status — campaign running (launched 2026-09-13)
+**Directional (single seed — reseed before claiming):**
 
-`scripts/run_campaign.py` queues ~100 h of GPU across 15 resumable stages. Done: S1 (3-seed
-main grid), S2 (MLM family, 3 seeds), S3 (pool ablation, seed 1914). Remaining: the
-augmentation-ratio ablation, the full-78k re-run, three cross-dataset/architecture runs, and
-the two remaining pool-ablation seeds. Live state: `results/campaign_manifest.json`. See `RESEARCH_PLAN.md` → "Campaign" for the queue and its decision points.
+- **The full-78k result is on hold.** It looked like the best number in the project (B3 at
+  −0.250 cASR) but all three augmented conditions there are flagged `DEGENERACY_SUSPECT`:
+  macro-F1 drops below baseline and predictions concentrate on the majority class (B3 78.7%
+  vs B0 71.1%), which lowers cASR without improving robustness. Being reseeded before it is
+  reported. The 20k 3-seed grid is unaffected.
+- **More augmentation helps**: r = 1.0 beats r = 0.5 for every condition.
+- **Generality tracks baseline fragility**: Ukr-RoBERTa on Reviews (baseline cASR 0.615)
+  gains −0.227; News (already robust at 0.118) gains little; **UNLP is inconclusive** — its
+  paired tests are all non-significant at one seed, so it is untested rather than a negative
+  case.
+
+Full tables, per-seed numbers and a claimability matrix: `RESEARCH_PLAN.md` → "Campaign
+results". Raw: `results/pilot_metrics_by_seed.md`, `results/pilot_metrics_paired.csv`.
 
 ## Running it
 

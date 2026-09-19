@@ -175,6 +175,89 @@ def build_stages() -> list[dict]:
     for seed in SEEDS[1:]:
         stages.append({**pool_stage(seed), "prune": True})
 
+    stages += build_followup_stages()
+    return stages
+
+
+def build_followup_stages() -> list[dict]:
+    """Round 2, added 2026-09-18 after the first 15 stages completed.
+
+    The 3-seed main grid is settled and needs no more compute. What is not settled is
+    everything that ran at a single seed -- which is where the three largest effects in
+    the project live. Worse, inventorying them turned up that the largest, the full-78k
+    result, is flagged for prediction collapse (its B3 loses 0.057 eval macro-F1 and
+    concentrates 78.7% of predictions on the majority class, which lowers cASR without
+    improving robustness). These stages reseed the single-seed claims, hardest-hitting
+    uncertainty first.
+    """
+    stages: list[dict] = []
+    extra_seeds = SEEDS[1:]  # 2024, 7 -- seed 1914 already ran for all of these
+
+    # R1: does full-data training degenerate systematically, or was that one seed?
+    # Decisive diagnostic afterwards: majority_pred_share across all three seeds.
+    for seed in extra_seeds:
+        stages.append({
+            "name": f"R1_full78k_seed{seed}",
+            "desc": f"Full 78k reseed, seed {seed} (tests the prediction-collapse confound)",
+            "argv": reviews_base() + [
+                "--seed", str(seed), "--pilot-root", "results/pilot_full78k",
+                "--variant", "full78k", "--clean-n", "78146",
+                "--conditions", "B0,B2,B3,B4",
+            ],
+            "prune": True,
+        })
+
+    # R2: the strongest generality effect (-0.227) is single-seed, and the B5 control has
+    # never been run on a second architecture -- so the *mechanism* is one-architecture too.
+    stages.append({
+        "name": "R2_ukrroberta_B5_seed1914",
+        "desc": "B5 control on Ukr-RoBERTa, seed 1914 (borrows the existing B0)",
+        "argv": ["--dataset", "reviews", "--model", "ukr_roberta",
+                 "--pilot-root", "results/pilot_ukrroberta_reviews",
+                 "--eval-n", EVAL_N, "--num-epochs", NUM_EPOCHS,
+                 "--seed", str(SEEDS[0]), "--conditions", "B5",
+                 "--min-baseline-macro-f1", "0.28"],
+    })
+    for seed in extra_seeds:
+        stages.append({
+            "name": f"R2_ukrroberta_seed{seed}",
+            "desc": f"Ukr-RoBERTa reseed + B5 control, seed {seed}",
+            "argv": ["--dataset", "reviews", "--model", "ukr_roberta",
+                     "--pilot-root", "results/pilot_ukrroberta_reviews",
+                     "--eval-n", EVAL_N, "--num-epochs", NUM_EPOCHS,
+                     "--seed", str(seed), "--conditions", "B0,B2,B3,B4,B5",
+                     "--min-baseline-macro-f1", "0.28"],
+            "prune": True,
+        })
+
+    # R3: UNLP is currently *inconclusive* (every paired p non-significant at one seed),
+    # not the negative case the earlier write-up claimed.
+    for seed in extra_seeds:
+        stages.append({
+            "name": f"R3_unlp_seed{seed}",
+            "desc": f"UNLP reseed, seed {seed} (inconclusive -> real answer)",
+            "argv": ["--dataset", "unlp", "--model", "xlmr_base",
+                     "--pilot-root", "results/pilot_unlp",
+                     "--eval-n", EVAL_N, "--num-epochs", NUM_EPOCHS,
+                     "--seed", str(seed), "--conditions", "B0,B2,B3,B4",
+                     "--min-baseline-macro-f1", "0.50"],
+            "prune": True,
+        })
+
+    # R4: r=1.0 beat r=0.5 for every condition on one seed; if it replicates, the
+    # recommended configuration changes.
+    for seed in extra_seeds:
+        stages.append({
+            "name": f"R4_ratio_r1.0_seed{seed}",
+            "desc": f"Augmentation ratio r=1.0 reseed, seed {seed}",
+            "argv": reviews_base() + [
+                "--seed", str(seed), "--pilot-root", seed_root(seed),
+                "--variant", "r1.0", "--ratio", "1.0",
+                "--conditions", "B2,B3,B4",
+            ],
+            "prune": True,
+        })
+
     return stages
 
 

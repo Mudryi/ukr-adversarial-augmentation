@@ -124,9 +124,9 @@ listed "adversarial augmentation" only as a future Defense idea):
 | Multi-stage campaign queue | `scripts/run_campaign.py` | done — 15 stages, resumable, optional checkpoint pruning |
 | Cross-seed aggregation | `scripts/aggregate_results.py` | done — per-seed cASR with range, pooled McNemar, single-seed cells flagged |
 
-**Still missing:** the ratio ablation, the full-78k re-run, the cross-dataset/architecture
-runs, and the two remaining pool-ablation seeds — stages 8–15 of the campaign, in progress.
-See §7b and `RESEARCH_PLAN.md` → "Campaign results".
+**Still missing:** additional seeds for the single-seed stages (full-78k, ratio, generality) —
+those carry the largest effects but the weakest evidence. See `RESEARCH_PLAN.md` → "What is
+and is not claimable".
 
 ## 7. Stage-A pilot artifacts — [produced 2026-09-13]
 
@@ -154,10 +154,11 @@ Headline outcome is in `RESEARCH_PLAN.md` → "Stage-A results": sense filtering
 naive augmentation (RQ2), adversarial selection is the strongest condition (RQ3), SAAA is not
 better than plain adversarial selection, and nothing transfers to BERT-Attack (RQ4, negative).
 
-## 7b. Campaign artifacts — [accumulating, 2026-09-15]
+## 7b. Campaign artifacts — [COMPLETE, 2026-09-17]
 
-Seven of fifteen stages done (~37 h GPU). State in `results/campaign_manifest.json`;
-per-stage logs in `results/campaign_logs/`.
+All 15 stages `ok`, 78.1 h GPU (under the ~100 h estimate), finished 2026-09-17 05:20.
+State in `results/campaign_manifest.json`; per-stage logs in `results/campaign_logs/`.
+`results/` is now ~27 GB; 115 GB free on the volume.
 
 | Path | Contents |
 |---|---|
@@ -166,6 +167,7 @@ per-stage logs in `results/campaign_logs/`.
 | `results/pilot_metrics.{md,csv}` | all cells: clean/adv accuracy, macro-F1, cASR + Wilson CI, flip rate |
 | `results/pilot_metrics_paired.csv` | every condition pair, per seed and variant, paired McNemar |
 | `results/pilot_metrics_by_seed.md` | **the table that decides claims** — per-seed cASR with range, pooled McNemar, single-seed cells flagged |
+| `results/augmentation_diagnostic.md` | known-antonym substitution rate per condition (label-noise lower bound) |
 | `results/archive/stageA_pilot_n400/` | the superseded single-seed pilot (n=400) |
 
 Checkpoint count is growing (~1.1 GB each); `run_campaign.py --prune-checkpoints` drops the

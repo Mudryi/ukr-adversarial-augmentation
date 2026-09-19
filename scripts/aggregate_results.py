@@ -33,6 +33,7 @@ import re
 import sys
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 from sklearn.metrics import f1_score
 
@@ -73,6 +74,27 @@ def load_examples(path: Path) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
+def prediction_spread(orig: pd.Series) -> dict:
+    """How concentrated are the model's CLEAN predictions?
+
+    cASR is conditioned on examples the model gets right when clean, and on an
+    imbalanced dataset those are dominated by the majority class -- which is also the
+    hardest class to flip away from. A model that has quietly stopped predicting its
+    minority classes therefore scores a *better* cASR without being more robust. These
+    columns make that failure visible next to every cASR number rather than leaving it
+    to be discovered later.
+    """
+    counts = orig.value_counts()
+    share = counts / len(orig)
+    ent = float(-(share * np.log2(share)).sum())
+    n_possible = max(int(orig.max()) + 1, len(counts))
+    return {
+        "majority_pred_share": float(share.max()),
+        "n_classes_predicted": int(len(counts)),
+        "pred_entropy": ent / np.log2(n_possible) if n_possible > 1 else 0.0,
+    }
+
+
 def compute_cell_metrics(df: pd.DataFrame) -> dict:
     true = df["true_label"]
     orig = df["orig_label"]
@@ -91,6 +113,7 @@ def compute_cell_metrics(df: pd.DataFrame) -> dict:
     casr_ci = wilson_ci(n_fooled, n_eligible) if n_eligible else None
 
     return {
+        **prediction_spread(orig),
         "casr_ci_lo": casr_ci.lo if casr_ci else float("nan"),
         "casr_ci_hi": casr_ci.hi if casr_ci else float("nan"),
         "n_total": len(df),
@@ -207,7 +230,7 @@ def write_across_seed_tables(out_df: pd.DataFrame, paired_df: pd.DataFrame, path
             **dict(zip(pkeys, key)),
             "n_seeds": len(grp), "n_seeds_agreeing": agree, "n_paired": n,
             "casr_delta": delta, "b_worse": b, "c_better": c,
-            "p_value": mcnemar_exact(b, c)["p_value"],
+            "p_value": mcnemar(b, c),
         })
     if prows:
         pooled = pd.DataFrame(prows).sort_values(pkeys)
@@ -220,6 +243,70 @@ def write_across_seed_tables(out_df: pd.DataFrame, paired_df: pd.DataFrame, path
 
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(f"wrote {path}")
+
+
+def mcnemar(b: int, c: int) -> float:
+    """Two-sided exact McNemar p-value that also survives large discordant counts.
+
+    ukr-synonym-robustness's `mcnemar_exact` sums binomial coefficients over 2**n, which
+    overflows a float64 once b + c exceeds ~1023 -- reachable here as soon as discordant
+    pairs are pooled across seeds. scipy's binomtest computes the same exact two-sided
+    binomial test in log space, so it is used whenever it is available; the original is
+    kept for small n so previously reported numbers stay reproducible.
+    """
+    n = b + c
+    if n == 0:
+        return 1.0
+    if n <= 1000:
+        return mcnemar_exact(b, c)["p_value"]
+    from scipy import stats
+
+    return float(stats.binomtest(min(b, c), n, 0.5).pvalue)
+
+
+def flag_degeneracy(out_df: pd.DataFrame, tolerance: float = 0.02) -> pd.DataFrame:
+    """Mark conditions whose eval-split macro-F1 fell materially below their own B0.
+
+    A robustness gain bought by abandoning minority classes is not a robustness gain.
+    The comparison is against the baseline that shares this cell's dataset/model/seed/
+    variant -- falling back to the base-variant B0, which ablation runs borrow rather
+    than retrain (see run_pilot.py --variant).
+    """
+    b0 = {(r.dataset, r.model, r.seed, r.variant): r.eval_macro_f1
+          for r in out_df.itertuples()
+          if r.condition == "B0" and pd.notna(r.eval_macro_f1)}
+    flags = []
+    for r in out_df.itertuples():
+        base = b0.get((r.dataset, r.model, r.seed, r.variant))
+        if base is None:
+            base = b0.get((r.dataset, r.model, r.seed, ""))
+        if r.condition == "B0" or base is None or pd.isna(r.eval_macro_f1):
+            flags.append("")
+        elif r.eval_macro_f1 < base - tolerance:
+            flags.append(f"DEGENERACY_SUSPECT(-{base - r.eval_macro_f1:.3f})")
+        else:
+            flags.append("")
+    out_df["degeneracy_flag"] = flags
+    return out_df
+
+
+def load_training_markers(roots: list[Path]) -> dict[str, float]:
+    """checkpoint-dir name -> eval-split macro-F1 at checkpoint selection.
+
+    The `clean_macro_f1` column in the per-cell table is computed on only the attacked
+    subset (1500 rows), which is far noisier and, on an imbalanced set, not comparable
+    across conditions. `train_augmented.py` records the full eval-split figure in each
+    checkpoint's TRAINING_COMPLETE marker; that is the number to judge clean
+    performance -- and degeneracy -- on.
+    """
+    markers: dict[str, float] = {}
+    for root in roots:
+        for marker in root.glob("*/checkpoints/*/TRAINING_COMPLETE"):
+            try:
+                markers[marker.parent.name] = float(json.loads(marker.read_text())["best_macro_f1"])
+            except (ValueError, KeyError, json.JSONDecodeError):
+                continue
+    return markers
 
 
 def find_cells(roots: list[Path]):
@@ -245,6 +332,7 @@ def main(argv=None):
     args = p.parse_args(argv)
 
     roots = [Path(r) for r in args.roots]
+    markers = load_training_markers(roots)
     records = []
     frames: dict[tuple, pd.DataFrame] = {}
     for attack, cell_name, examples_path in find_cells(roots):
@@ -256,7 +344,10 @@ def main(argv=None):
         metrics = compute_cell_metrics(df)
         frames[(attack, parsed["dataset"], parsed["model"], parsed["wsd"],
                 parsed["seed"], parsed["variant"], parsed["condition"])] = df
-        records.append({"attack": attack, **parsed, **metrics, "source": str(examples_path)})
+        ckpt_name = cell_name[: -len("__wsd035")] if cell_name.endswith("__wsd035") else cell_name
+        records.append({"attack": attack, **parsed, **metrics,
+                        "eval_macro_f1": markers.get(ckpt_name, float("nan")),
+                        "source": str(examples_path)})
         print(f"[ok] {attack}/{cell_name}: n={metrics['n_total']} "
               f"clean_acc={metrics['clean_accuracy']:.3f} cASR={metrics['cASR']:.3f} "
               f"flip_rate={metrics['flip_rate']:.3f}")
@@ -265,15 +356,15 @@ def main(argv=None):
         print("no cells found under: " + ", ".join(str(r) for r in roots))
         return
 
-    out_df = pd.DataFrame(records)
+    out_df = flag_degeneracy(pd.DataFrame(records))
     out_csv = Path(args.out + ".csv")
     out_csv.parent.mkdir(parents=True, exist_ok=True)
     out_df.to_csv(out_csv, index=False)
 
     out_md = Path(args.out + ".md")
     cols = ["attack", "dataset", "model", "condition", "seed", "variant", "wsd", "n_total",
-            "clean_accuracy", "clean_macro_f1", "adv_accuracy", "adv_macro_f1",
-            "delta", "cASR", "flip_rate"]
+            "clean_accuracy", "eval_macro_f1", "adv_accuracy",
+            "delta", "cASR", "flip_rate", "majority_pred_share", "degeneracy_flag"]
     table_df = out_df[cols].round(4).fillna("")
     header = "| " + " | ".join(cols) + " |"
     sep = "|" + "|".join("---" for _ in cols) + "|"
@@ -285,6 +376,21 @@ def main(argv=None):
         f.write("# Baseline / augmentation metrics (macro-F1, cASR, flip-rate)\n\n")
         f.write("Derived from `examples.jsonl` per-row data; not present in "
                 "`ukr-synonym-robustness/src/evaluation/metrics.py`'s `Summary`.\n\n")
+        f.write("`eval_macro_f1` is the full eval-split figure from the checkpoint's "
+                "TRAINING_COMPLETE marker -- judge clean performance on it, NOT on a "
+                "macro-F1 computed over the attacked subset. `majority_pred_share` and "
+                "`degeneracy_flag` guard against a cASR 'gain' that is really a model "
+                "abandoning its minority classes.\n\n")
+        flagged = out_df[out_df["degeneracy_flag"] != ""]
+        if not flagged.empty:
+            f.write(f"> **{len(flagged)} flagged cell(s).** Their cASR must not be quoted as a "
+                    "robustness result without reporting the macro-F1 drop alongside it:\n>\n")
+            for r in flagged.drop_duplicates(["dataset","model","condition","seed","variant"]).itertuples():
+                f.write(f"> - `{r.dataset}/{r.model}/{r.condition}/seed{r.seed}"
+                        f"{'/' + r.variant if r.variant else ''}` "
+                        f"eval macro-F1 {r.eval_macro_f1:.3f}, majority share "
+                        f"{r.majority_pred_share:.1%} — {r.degeneracy_flag}\n")
+            f.write("\n")
         f.write("\n".join([header, sep, *body_lines]))
         f.write("\n")
 

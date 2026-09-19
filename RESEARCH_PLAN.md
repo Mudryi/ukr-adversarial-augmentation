@@ -49,7 +49,13 @@ B5–B7 were added after the Stage-A pilot, to close two holes it exposed:
   and same four admissibility filters (`augmentation/mlm_synonym.py`) — and are evaluated
   under TextFooler, completing the 2×2.
 
-  *Known caveat:* MLM candidates are not guaranteed meaning-preserving. The filter set is
+  *Caveat, now quantified* (`results/augmentation_diagnostic.md`, via
+  `scripts/diagnose_augmentation.py`): the known-antonym substitution rate is **0.33% (B6) /
+  0.35% (B7)** against **0.00% for B1–B5**, with flagged pairs like `поганий → хороший` that
+  genuinely invert a sentiment label. The rate is a lower bound (dictionary-known antonyms
+  only) but far too small to explain B6/B7's weak within-TextFooler performance, so the
+  distribution-mismatch reading of RQ4 stands rather than a label-noise one.
+  *Original note:* MLM candidates are not guaranteed meaning-preserving. The filter set is
   BERT-Attack's own, and fastText similarity does not separate antonyms (an observed
   example: `погана → висока`, which inverts the sentiment while the gold label is kept).
   This is faithful to the attack, but it means a poor B6/B7 result is ambiguous between
@@ -242,7 +248,10 @@ the same method in disguise — 24.1% replacement overlap — which is why the p
 is worth 10 hours: the null needs a mechanism, and "the pool was too small for the filter to
 matter" is the only cheap one left standing.
 
-## Campaign results (live) — SUPERSEDE the Stage-A pilot
+## Campaign results — COMPLETE (15/15 stages, 78.1 h, finished 2026-09-17)
+
+These supersede the Stage-A pilot throughout. Claim strength is stated per finding:
+a 3-seed result is claimable, a single-seed one is directional.
 
 ### S1 — main grid, 3 seeds, n=1500 (2026-09-14)
 
@@ -345,6 +354,102 @@ this is a diagnostic regime, **not** a better operating point — the recommende
 remains the small pool; (2) this is one seed, and S1 showed B3 specifically to be the
 seed-unstable condition. The two remaining S3 seeds are queued at the end of the campaign and
 are what make this claimable.
+
+### S3 (final) — pool ablation now has all 3 seeds
+
+| | seed7 | seed1914 | seed2024 | mean |
+|---|---|---|---|---|
+| B3 @ 3x6 | 0.387 | 0.304 | 0.235 | 0.309 |
+| B4 @ 3x6 | 0.302 | 0.304 | 0.284 | **0.296** |
+| B3 @ 10x20 | 0.336 | 0.408 | 0.258 | 0.334 |
+| B4 @ 10x20 | 0.236 | 0.347 | 0.295 | **0.292** |
+
+B3-vs-B4 head-to-head widens with pool size: pooled **-0.017 (1/3 seeds)** at 3x6 versus
+**-0.044, p < 0.0001 (2/3 seeds)** at 10x20. That is consistent with the "safeguard on search
+width" mechanism, **but 2/3 is not unanimity** — seed 2024 favours B3 at both pool sizes.
+State this as *supported*, not established. Note also that B4's prized stability degrades at
+the wide pool (range 0.111 vs 0.020 at 3x6), so the small pool remains the operating point.
+
+### S4 — augmentation ratio (seed 1914 only; directional)
+
+| Condition | r=0.25 | r=0.5 | r=1.0 |
+|---|---|---|---|
+| B2 | 0.350 | 0.384 | **0.323** |
+| B3 | 0.266 | 0.304 | **0.223** |
+| B4 | 0.279 | 0.304 | **0.251** |
+
+r = 1.0 is best for all three conditions, so **more augmentation helps** and r = 0.5 was not
+the optimum. The non-monotonicity (r=0.5 worst of the three) is within the seed noise S1
+measured for these conditions, so read only the endpoints. One seed — reseed before claiming.
+
+### S5 — full 78k train set (seed 1914 only; directional, and important)
+
+| Condition | 20k subsample | full 78k | vs its own B0 |
+|---|---|---|---|
+| B0 | 0.394 | 0.439 | — |
+| B2 | 0.384 | 0.355 | -0.084 |
+| B3 | 0.304 | **0.188** | **-0.250** |
+| B4 | 0.304 | 0.268 | -0.170 |
+
+**DO NOT QUOTE THESE NUMBERS BARE — they are confounded by prediction collapse.**
+All three augmented conditions here are flagged `DEGENERACY_SUSPECT` by
+`scripts/aggregate_results.py`: their eval-split macro-F1 falls below their own baseline
+(B0 0.523; B2 0.503, B4 0.491, **B3 0.466**) and their predictions concentrate on the
+majority class (B0 71.1%; B3 **78.7%**, with class 1 falling from 76 predictions to 16).
+cASR is conditioned on clean-correct examples, which on this imbalanced dataset are
+dominated by the majority class — the hardest class to flip away from. A model that has
+stopped using its minority classes therefore scores a better cASR *without being more
+robust*, so an unknown fraction of B3's −0.250 is degeneracy rather than defence.
+
+What it might mean if it survives: the 20k subsample understated the method, the baseline
+gets more brittle with more clean data while augmented conditions get more robust, and every
+S1 number is a conservative floor. What it might equally mean: full-data training with this
+recipe degenerates. **One seed cannot tell these apart** — stage R1 reseeds it, and the
+decisive diagnostic is whether `majority_pred_share` is high on all three seeds.
+
+The 20k 3-seed grid is *not* affected: macro-F1 there is 0.484–0.503 across all conditions
+and B3/B4 are **less** concentrated than B0 (71.7/72.4% vs 75.3%).
+
+### S6 — generality (seed 1914 only; directional). cASR delta vs each column's own B0
+
+| Condition | News x XLM-R | Reviews x Ukr-RoBERTa | Reviews x XLM-R | UNLP x XLM-R |
+|---|---|---|---|---|
+| (B0 absolute) | 0.118 | 0.615 | 0.394 | 0.334 |
+| B2 | -0.004 | -0.018 | -0.010 | -0.013 |
+| B3 | -0.033 | **-0.227** | -0.091 | **+0.033** |
+| B4 | -0.017 | **-0.214** | -0.090 | -0.003 |
+
+Generality is **real but uneven**, and the pattern is legible: the method pays in proportion
+to how lexically fragile the baseline is. Ukr-RoBERTa on Reviews starts at cASR 0.615 and
+gains the most (−0.227, p < 0.0001); News starts at 0.118, already robust, and gains little
+(−0.033, p < 0.001).
+
+**UNLP is inconclusive, not negative.** The +0.033 in the table is a difference of raw cASR
+means; the *paired* test — the valid comparison, since the two models have different
+clean-correct sets — gives B3 **−0.003 (p = 1.00)**, B4 −0.020 (p = 0.41), B2 −0.035
+(p = 0.12). Nothing is significant in either direction at one seed. An earlier version of
+this document said "B3 is actively worse" on UNLP; that was wrong and is retracted. The
+hypothesis worth testing (stage R3) is that manipulation detection keys on rhetorical rather
+than lexical signal, so single-word synonym substitution is not its threat model — but the
+data does not yet support saying so. Do not claim cross-task generality; claim it for
+sentiment/topic classification and report UNLP as untested.
+
+### What is and is not claimable
+
+| Finding | Evidence | Verdict |
+|---|---|---|
+| Direction of adversarial selection is the mechanism (B5 control) | 3 seeds, +0.169, all p < 0.0001 | **Claimable** |
+| SAAA (B4) beats baseline | 3/3 seeds, range 0.020 | **Claimable** |
+| B4 is more *stable* than B3 | range 0.020 vs 0.152 | **Claimable** |
+| B4 has a lower *mean* than B3 | 1/3 seeds @3x6, 2/3 @10x20 | **Not claimable** |
+| WSD filter as a safeguard on search width | 2/3 seeds | Supported, not established |
+| RQ2: WSD-filtered beats unfiltered | 3/3 seeds, -0.033 | Claimable, modest |
+| RQ4: no cross-family transfer, both directions | 3 seeds each side | **Claimable** |
+| Naive augmentation harms robustness | did not replicate (p = 0.43) | **Retracted** |
+| Ratio, generality (Ukr-RoBERTa, News) | 1 seed each | Directional only |
+| Full-78k gains | 1 seed **and** flagged for prediction collapse | **Do not report** until R1 |
+| UNLP is a negative case | paired p = 1.00 at 1 seed | **Not supported** — untested, not negative |
+| B6/B7 results reflect distribution, not label noise | antonym rate 0.3% vs 0.0% | Claimable |
 
 ## Guardrails (don't skip)
 
