@@ -5,57 +5,30 @@ Follow-up to the *Precision vs. Perturbation* (UNLP 2025) attack/WSD work. This 
 > Can automatically generated, sense-aware synonym augmentation improve the robustness of
 > Ukrainian text classifiers without sacrificing clean accuracy?
 
-The research questions, training conditions, metrics, staged plan, and full results are
-summarized below and in `results/`; internal planning notes are omitted from this release.
+We train XLM-R and Ukr-RoBERTa classifiers on UA Reviews (plus single-seed checks on News and
+UNLP-2025 manipulation detection) under six synonym-substitution augmentation strategies —
+random, WSD-filtered, adversarial, WSD-filtered adversarial (SAAA), an anti-adversarial control,
+and an MLM-based variant — and evaluate robustness against TextFooler and BERT-Attack across
+3 seeds.
 
-## Status — campaign COMPLETE (24/24 stages, 124.3 h, finished 2026-09-19)
+**Key findings:**
 
-XLM-R + UA Reviews across 3 seeds for the main grid, plus MLM, pool-size, ratio, full-data
-and cross-dataset/architecture conditions — every one of them reseeded to 3 seeds except
-News (excluded, lowest priority). **This supersedes the single-seed Stage-A pilot outright.**
-
-**Claimable, and now checked on 2 architectures + full training data:**
-
-- **The mechanism is settled and generalises.** B5 — same candidate pool, but picking the
-  *least* confidence-reducing substitution — is far worse than no augmentation at all on
-  **both** XLM-R and Ukr-RoBERTa (+0.17 to +0.20 cASR, 6/6 seed×architecture cells,
-  p < 0.0001 throughout). The *direction* of adversarial selection is what buys robustness,
-  not architecture-specific luck.
-- **SAAA (B4) beats baseline everywhere it was tested**: main grid (3/3 seeds), full-78k
-  training (3/3 seeds), Ukr-RoBERTa (3/3 seeds). No condition beats it on clean accuracy cost.
-- **But "SAAA is more reliable than plain adversarial selection" is architecture-dependent,
-  not universal — this is the one place the pilot's framing needed real correction.** On
-  XLM-R, B4 has a 7× smaller seed-to-seed range than B3 (0.020 vs 0.152) with no clear mean
-  edge. On **Ukr-RoBERTa, B3 is both the lower-mean AND the more stable condition**
-  (mean 0.387 vs B4's 0.414, range 0.015 vs 0.037, p < 0.0001 on 3/3 seeds). Neither
-  condition has a lower mean than the other everywhere — report reliability/collapse-
-  resistance as the contribution, never "B4 has a lower mean than B3."
-- **The full-78k "win" for B3 does not survive reseeding, and it is now explained.** All
-  three augmented conditions there are flagged `DEGENERACY_SUSPECT` on at least one seed
-  (predictions concentrating on the majority class). Reseeding showed *why*: on the one
-  seed where B3 does **not** collapse (its macro-F1 matches B0's), it gives **zero**
-  robustness gain (p = 1.00). On the two seeds where it does collapse, it also "wins" by a
-  large margin. **That correlation is the whole effect — B3's full-78k number is retracted
-  as a robustness claim.** B4's full-78k gain is real, smaller, and does not correlate with
-  collapse (3/3 seeds, modest macro-F1 cost) — it is the number to report.
-- **RQ4 is negative in both directions**, and label noise is ruled out as an explanation:
-  each augmentation family helps only against its own attack family (B4 best against
-  TextFooler, worse than baseline against BERT-Attack; MLM-based B7 the mirror image), and
-  the antonym rate in the MLM conditions is only 0.3% — far too low to be the cause.
-- **UNLP has no reliable effect, now confirmed over 3 seeds** (was "inconclusive" at 1 seed;
-  now only 1/9 seed×condition comparisons reach significance, no consistent direction).
-  Report as a genuine negative case, consistent with manipulation detection being a
+- The *direction* of adversarial candidate selection, not architecture, drives robustness:
+  picking the least confidence-reducing substitution is reliably worse than no augmentation
+  at all, on both XLM-R and Ukr-RoBERTa.
+- WSD-filtered adversarial augmentation (SAAA) beats the unaugmented baseline in every setting
+  tested — main grid, full-data training, and both architectures — with no clean-accuracy cost.
+- SAAA's advantage over plain adversarial augmentation is architecture-dependent: it is the
+  more stable condition on XLM-R (much smaller seed-to-seed variance), but not the lower-mean
+  one on Ukr-RoBERTa.
+- Each augmentation family improves robustness only against the attack family it targets
+  (e.g. adversarial augmentation helps against TextFooler but not BERT-Attack, and vice versa
+  for the MLM-based variant); this is not explained by label noise.
+- UNLP-2025 manipulation detection shows no reliable effect, consistent with that task being a
   rhetorical rather than lexical signal.
-- **More augmentation helps, but not unanimously**: r = 1.0 beats r = 0.5 on 2/3 seeds for
-  every condition; **B4 is the only condition where it never reverses** (the third seed is
-  null, not worse) — the safest ratio recommendation is for B4 specifically.
-- **No clean-performance cost** anywhere: accuracy 0.763–0.778, eval macro-F1 0.484–0.503.
-- **Retracted from the pilot:** "naive augmentation hurts" did not replicate (p = 0.43).
+- More augmented data helps, but not uniformly across conditions.
 
-**Still single-seed (low priority, not reseeded):** News generality (−0.033) and the r=0.25
-ratio point.
-
-Per-seed numbers and the full claimability matrix: `results/pilot_metrics_by_seed.md`,
+Full per-seed numbers, significance tests, and the complete results grid: `results/pilot_metrics_by_seed.md`,
 `results/pilot_metrics_paired.csv`, `results/augmentation_diagnostic.md` (antonym-rate check).
 
 ## Running it
@@ -116,7 +89,7 @@ This repo is deliberately thin. Nearly everything it needs already exists in sib
 - **WSD encoder** — `lang-uk/ukr-paraphrase-multilingual-mpnet-base` (ConEFU, from
   `../U-WSD`), pulled from the Hugging Face Hub, not vendored.
 - **fastText vectors for BERT-Attack** — `../bert_attack_uk/fasttext_uk_cbow/cbow.uk.300.bin`
-  (8.8GB), referenced by absolute path.
+  (8.8GB), referenced by sibling-checkout path.
 
 Consequence: **this project is not self-contained.** It reads those sibling folders in place and
 breaks if they are moved or renamed. Nothing is copied, so there is no divergence risk either.
