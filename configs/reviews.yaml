@@ -2,18 +2,17 @@
 dataset: reviews
 nclasses: 5
 
-train-path: /home/mudryi/phd_projects/xml-roberta-finetune-reviews/cross_domain_uk_reviews/train_reviews.csv
-eval-path: /home/mudryi/phd_projects/xml-roberta-finetune-reviews/cross_domain_uk_reviews/eval_reviews.csv
-test-path: /home/mudryi/phd_projects/xml-roberta-finetune-reviews/cross_domain_uk_reviews/test_reviews.csv
+train-path: ../xml-roberta-finetune-reviews/cross_domain_uk_reviews/train_reviews.csv
+eval-path: ../xml-roberta-finetune-reviews/cross_domain_uk_reviews/eval_reviews.csv
+test-path: ../xml-roberta-finetune-reviews/cross_domain_uk_reviews/test_reviews.csv
 
-# Primary models for this project (article_plan.md #3 -- no sbert for now).
+# Primary models for this project (no sbert for now).
 models:
   ukr_roberta:
     hf-name: youscan/ukr-roberta-base
-    b0-checkpoint: /home/mudryi/phd_projects/xml-roberta-finetune-reviews/trained_models/7ddc/model_7ddc_7_600
+    b0-checkpoint: ../xml-roberta-finetune-reviews/trained_models/7ddc/model_7ddc_7_600
   xlmr_base:
     hf-name: xlm-roberta-base
-    b0-checkpoint: /home/mudryi/phd_projects/xml-roberta-finetune-reviews/trained_models/tmdk/model_tmdk_7_600
+    b0-checkpoint: ../xml-roberta-finetune-reviews/trained_models/tmdk/model_tmdk_7_600
 
-# TODO: verify these B0 checkpoints reproduce results/summary_tables.md before trusting them
-# (see CURRENT_STATE.md section 2).
+# TODO: verify these B0 checkpoints reproduce results/summary_tables.md before trusting them.

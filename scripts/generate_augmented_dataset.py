@@ -14,7 +14,7 @@ Usage (adversarial / wsd_adversarial -- need a B0 checkpoint to score candidates
     python scripts/generate_augmented_dataset.py \
         --dataset reviews --strategy wsd_adversarial --ratio 0.5 --seed 1914 \
         --target-model xlm-roberta-base \
-        --target-checkpoint /home/mudryi/phd_projects/xml-roberta-finetune-reviews/trained_models/tmdk/model_tmdk_7_600 \
+        --target-checkpoint ../xml-roberta-finetune-reviews/trained_models/tmdk/model_tmdk_7_600 \
         --output-dir results/augmented/reviews__wsd_adversarial__xlmr__r0.5__seed1914
 
 `--limit N` caps the number of (shuffled) training rows considered, for a quick

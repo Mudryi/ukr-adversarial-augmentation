@@ -2,16 +2,16 @@
 dataset: news
 nclasses: 5
 
-train-path: /home/mudryi/phd_projects/xml-roberta-finetune-reviews/ua-news/train.csv
-eval-path: /home/mudryi/phd_projects/xml-roberta-finetune-reviews/ua-news/eval.csv
-test-path: /home/mudryi/phd_projects/xml-roberta-finetune-reviews/ua-news/test.csv
+train-path: ../xml-roberta-finetune-reviews/ua-news/train.csv
+eval-path: ../xml-roberta-finetune-reviews/ua-news/eval.csv
+test-path: ../xml-roberta-finetune-reviews/ua-news/test.csv
 
 models:
   ukr_roberta:
     hf-name: youscan/ukr-roberta-base
-    b0-checkpoint: /home/mudryi/phd_projects/xml-roberta-finetune-reviews/trained_models/npz4/model_npz4_9_1000
+    b0-checkpoint: ../xml-roberta-finetune-reviews/trained_models/npz4/model_npz4_9_1000
   xlmr_base:
     hf-name: xlm-roberta-base
-    b0-checkpoint: /home/mudryi/phd_projects/xml-roberta-finetune-reviews/trained_models/3rzr/model_3rzr_9_2500
+    b0-checkpoint: ../xml-roberta-finetune-reviews/trained_models/3rzr/model_3rzr_9_2500
 
 # TODO: verify these B0 checkpoints reproduce results/summary_tables.md before trusting them.

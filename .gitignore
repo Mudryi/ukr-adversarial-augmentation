@@ -11,3 +11,18 @@ results/**/logs/
 results/**/*.jsonl
 results/**/clean_train_subsample.csv
 *.safetensors
+
+# Internal planning notes (not part of the camera-ready release)
+CURRENT_STATE.md
+RESEARCH_PLAN.md
+article_plan.md
+
+# Raw run logs and manifests (bookkeeping only; superseded by results/*.csv|*.md)
+results/campaign.log
+results/campaign_logs/
+results/campaign_manifest.json
+results/**/manifest.json
+results/**/overnight.log
+
+# Superseded single-seed pilot, replaced by the reseeded campaign
+results/archive/stageA_pilot_n400/

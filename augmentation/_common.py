@@ -29,16 +29,17 @@ from src.core.synonym_dict import read_and_clean_synonym_dict  # noqa: E402
 from src.core.tokenization import tokenize_ukrainian  # noqa: E402
 
 # Exact paths run_attack.py's saved configs used to build the paper-grid synonym
-# dictionary (see CURRENT_STATE.md) -- reused here so augmentation candidates come
-# from the same resource the attacks were evaluated against.
-DEFAULT_SYNONYM_DICT = "/home/mudryi/phd_projects/synonym_attack/synonyms_dictionaries/synonimy_info_clean.json"
-DEFAULT_HAND_PARSED = "/home/mudryi/phd_projects/textfooler_ukr/hand_parsed_top_100.json"
-DEFAULT_ANTONYMS = "/home/mudryi/phd_projects/synonym_attack/synonyms_dictionaries/antonimy.jsonlines"
+# dictionary -- reused here so augmentation candidates come from the same resource
+# the attacks were evaluated against. Sibling checkouts, like UKR_SYNONYM_ROBUSTNESS above.
+_PHD_PROJECTS = Path(__file__).resolve().parents[2]
+DEFAULT_SYNONYM_DICT = str(_PHD_PROJECTS / "synonym_attack" / "synonyms_dictionaries" / "synonimy_info_clean.json")
+DEFAULT_HAND_PARSED = str(_PHD_PROJECTS / "textfooler_ukr" / "hand_parsed_top_100.json")
+DEFAULT_ANTONYMS = str(_PHD_PROJECTS / "synonym_attack" / "synonyms_dictionaries" / "antonimy.jsonlines")
 
 # BERT-Attack (and MLM-based augmentation) needs Ukrainian fastText vectors.
 # run_attack.py resolves them relative to CWD, which doesn't exist under this
-# project, so both callers pass this absolute path explicitly.
-DEFAULT_FASTTEXT = "/home/mudryi/phd_projects/bert_attack_uk/fasttext_uk_cbow/cbow.uk.300.bin"
+# project, so both callers pass this path explicitly.
+DEFAULT_FASTTEXT = str(_PHD_PROJECTS / "bert_attack_uk" / "fasttext_uk_cbow" / "cbow.uk.300.bin")
 
 DEFAULT_WSD_DICT = str(UKR_SYNONYM_ROBUSTNESS / "data" / "sum_16.jsonlines")
 DEFAULT_WSD_MANUAL = str(UKR_SYNONYM_ROBUSTNESS / "data" / "manual_senses.json")

@@ -5,10 +5,8 @@ Follow-up to the *Precision vs. Perturbation* (UNLP 2025) attack/WSD work. This 
 > Can automatically generated, sense-aware synonym augmentation improve the robustness of
 > Ukrainian text classifiers without sacrificing clean accuracy?
 
-See [`CURRENT_STATE.md`](CURRENT_STATE.md) for the inventory of what exists (reused assets +
-what this project built), and [`RESEARCH_PLAN.md`](RESEARCH_PLAN.md) for the research questions,
-training conditions, metrics, staged plan, and **results**. The full narrative version of the
-plan this was distilled from is `article_plan.md` (in this folder).
+The research questions, training conditions, metrics, staged plan, and full results are
+summarized below and in `results/`; internal planning notes are omitted from this release.
 
 ## Status — campaign COMPLETE (24/24 stages, 124.3 h, finished 2026-09-19)
 
@@ -57,16 +55,15 @@ News (excluded, lowest priority). **This supersedes the single-seed Stage-A pilo
 **Still single-seed (low priority, not reseeded):** News generality (−0.033) and the r=0.25
 ratio point.
 
-Full tables, per-seed numbers and the final claimability matrix: `RESEARCH_PLAN.md` →
-"Round 2 results". Raw: `results/pilot_metrics_by_seed.md`, `results/pilot_metrics_paired.csv`,
-`results/augmentation_diagnostic.md` (antonym-rate check).
+Per-seed numbers and the full claimability matrix: `results/pilot_metrics_by_seed.md`,
+`results/pilot_metrics_paired.csv`, `results/augmentation_diagnostic.md` (antonym-rate check).
 
 ## Running it
 
 Use the `ukr-synonym-robustness` venv — the default `python3` lacks pymorphy2/sklearn:
 
 ```bash
-PY=/home/mudryi/phd_projects/ukr-synonym-robustness/dev_env/bin/python3
+PY=../ukr-synonym-robustness/dev_env/bin/python3
 
 $PY scripts/run_campaign.py --list        # the stage queue and its exact commands
 $PY scripts/run_campaign.py --smoke       # tiny end-to-end test of every code path
@@ -109,13 +106,13 @@ This repo is deliberately thin. Nearly everything it needs already exists in sib
   pip install -e ../ukr-synonym-robustness
   # or: export PYTHONPATH="../ukr-synonym-robustness:$PYTHONPATH"
   ```
-- **Datasets and frozen train/val/test splits** — referenced by absolute path in
-  `configs/*.yaml` here, mirroring `../ukr-synonym-robustness/configs/*.yaml`. CSVs are not
-  copied into this repo.
+- **Datasets and frozen train/val/test splits** — referenced by relative path (sibling
+  checkout) in `configs/*.yaml` here, mirroring `../ukr-synonym-robustness/configs/*.yaml`.
+  CSVs are not copied into this repo.
 - **Published classifier checkpoints** — referenced by path from
-  `../xml-roberta-finetune-reviews/trained_models/` (see `CURRENT_STATE.md` §2 for the exact
-  IDs). Used as an external reference only: the pilot's B0 baseline is **retrained here** so
-  that it differs from B1–B4 in training *data* alone, not in pipeline.
+  `../xml-roberta-finetune-reviews/trained_models/`. Used as an external reference only:
+  the pilot's B0 baseline is **retrained here** so that it differs from B1–B4 in training
+  *data* alone, not in pipeline.
 - **WSD encoder** — `lang-uk/ukr-paraphrase-multilingual-mpnet-base` (ConEFU, from
   `../U-WSD`), pulled from the Hugging Face Hub, not vendored.
 - **fastText vectors for BERT-Attack** — `../bert_attack_uk/fasttext_uk_cbow/cbow.uk.300.bin`

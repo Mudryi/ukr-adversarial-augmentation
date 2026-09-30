@@ -48,7 +48,7 @@ PROJECT_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from augmentation._common import DEFAULT_FASTTEXT  # noqa: E402
-PYTHON = "/home/mudryi/phd_projects/ukr-synonym-robustness/dev_env/bin/python3"
+PYTHON = str(PROJECT_ROOT.parent / "ukr-synonym-robustness" / "dev_env" / "bin" / "python3")
 
 STRATEGY_FOR_CONDITION = {
     "B1": "random",

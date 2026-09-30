@@ -53,7 +53,7 @@ from datetime import datetime
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-PYTHON = "/home/mudryi/phd_projects/ukr-synonym-robustness/dev_env/bin/python3"
+PYTHON = str(PROJECT_ROOT.parent / "ukr-synonym-robustness" / "dev_env" / "bin" / "python3")
 
 SEEDS = [1914, 2024, 7]
 EVAL_N = "1500"          # up from the pilot's 400: min detectable |delta cASR| ~0.058 -> ~0.030

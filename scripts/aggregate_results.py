@@ -20,8 +20,8 @@ own evaluate_robustness.py starts writing cells for B1-B4).
 
 Usage:
     python scripts/aggregate_results.py \
-        --root /home/mudryi/phd_projects/ukr-synonym-robustness/results \
-        --root /home/mudryi/phd_projects/ukr-adversarial-augmentation/results \
+        --root ../ukr-synonym-robustness/results \
+        --root results \
         --out results/baseline_metrics
 """
 
