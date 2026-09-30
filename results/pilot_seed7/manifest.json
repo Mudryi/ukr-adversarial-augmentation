@@ -36,7 +36,11 @@
     "eval_B3_textfooler": "ok",
     "eval_B4_textfooler": "ok",
     "eval_B2_textfooler_wsd": "ok",
-    "eval_B3_textfooler_wsd": "ok"
+    "eval_B3_textfooler_wsd": "ok",
+    "eval_B4_textfooler_wsd": "ok",
+    "eval_B2_bert_attack": "ok",
+    "eval_B3_bert_attack": "ok",
+    "eval_B4_bert_attack": "ok"
   },
-  "updated": "2026-09-19T21:59:07.469530"
+  "updated": "2026-09-19T23:18:29.515528"
 }

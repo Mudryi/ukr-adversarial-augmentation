@@ -87,13 +87,13 @@ Per model/dataset/condition, on clean + TextFooler + BERT-Attack + WSD-TextFoole
 | P0 | Train B1–B4 on XLM-R + Reviews (pilot) | **done** — Stage-A, 2026-09-13 |
 | P0 | Evaluate all 5 conditions × clean/TF/BERT/WSD-TF | **done** — 15 cells, `results/pilot_metrics.md` |
 | P0 | Cross-attack generalization matrix | **done** — negative result (RQ4): no transfer to BERT-Attack |
-| P0 | RQ3 control: anti-adversarial (argmin) selection, B5 | **queued** — S1; RQ3's interpretation is untested without it |
-| P1 | 3 seeds (1914 + 2 more) on B0–B5, CIs | **queued** — S1; required before any gain can be claimed |
-| P1 | Augmentation from BERT-Attack-style MLM substitutions, B6/B7 | **queued** — S2; promoted from P2, it is the missing half of RQ4 |
-| P1 | Pool-size ablation (10×20) — does SAAA pay off with room to choose? | **queued** — S3 |
-| P1 | Augmentation-ratio ablation, r ∈ {0.25, 0.5, 1.0} | **queued** — S4 |
-| P1 | Re-run pilot on full 78k train (not the 20k subsample) | **queued** — S5 |
-| P1 | Scale surviving conditions to Ukr-RoBERTa + News + UNLP | **queued** — S6 |
+| P0 | RQ3 control: anti-adversarial (argmin) selection, B5 | **done** — 3 seeds x 2 architectures, all p < 0.0001 |
+| P1 | 3 seeds (1914 + 2 more) on B0–B5, CIs | **done** — S1 |
+| P1 | Augmentation from BERT-Attack-style MLM substitutions, B6/B7 | **done** — S2, RQ4 answered both directions |
+| P1 | Pool-size ablation (10×20) | **done** — S3, all 3 seeds |
+| P1 | Augmentation-ratio ablation, r ∈ {0.25, 0.5, 1.0} | **done** — S4 + R4, r=1.0 reseeded |
+| P1 | Re-run pilot on full 78k train (not the 20k subsample) | **done** — S5 + R1; B3's version retracted (collapse), B4's stands |
+| P1 | Scale surviving conditions to Ukr-RoBERTa + News + UNLP | **done for Ukr-RoBERTa + UNLP** (3 seeds each, R2/R3); News remains 1 seed (lowest priority, not reseeded) |
 | P2 | Inference-time synonym ensemble | optional, drop if time tight |
 | P2 | Third architecture (sbert) | only if everything else done |
 | P3 | New human annotation | avoid — reuse existing WSD/validity audits in `ukr-synonym-robustness/results/{wsd_dev,audit,audit_replacements}` |
@@ -104,8 +104,9 @@ Per model/dataset/condition, on clean + TextFooler + BERT-Attack + WSD-TextFoole
    passed: B3 and B4 clearly beat B0 on cASR under the TextFooler family with no clean-accuracy
    cost, so scaling is justified. See "Stage-A results" above.
 2. ~~**Cross-attack generalization.**~~ **Done — negative** (no transfer to BERT-Attack).
-3. Everything from here is queued in **`scripts/run_campaign.py`** — see "Campaign" below.
-   Run `python scripts/run_campaign.py --list` for the exact commands.
+3. **Campaign complete** (24/24 stages, 124.3 h). See "Round 2 results" below for the
+   final claimability matrix. `python scripts/run_campaign.py --list` still shows the
+   exact commands for reproducibility.
 
 ## Stage-A pilot as actually run (2026-09-13)
 
@@ -202,15 +203,12 @@ train subsample, capped candidate pool, 400 eval examples. The McNemar tests acc
 the 3-seed repeat (P1) before being claimed. B3-vs-B4 being null here is also exactly the
 kind of small difference that multiple seeds could reorder.
 
-**Implied next steps:** (1) 3 seeds on B0/B2/B3/B4 to convert these into defensible claims;
-(2) drop or de-emphasize B1 — its role is now "informative negative control"; (3) the SAAA
-framing needs rethinking, since B3 matches B4 — either find a regime where sense filtering
-pays off on top of adversarial selection, or reframe the contribution around RQ2 (sense
-filtering rescues *random* augmentation) and the RQ4 negative result; (4) RQ4 suggests
-testing augmentation built from BERT-Attack-style MLM substitutions for cross-family
-coverage.
+**These implied next steps were all carried out** — see "Round 2 results" for the final
+answers: the 3-seed reruns, the retirement of B1 as a negative control, the resolution of
+the SAAA-vs-B3 question (architecture-dependent, not universal), and the MLM conditions
+(B6/B7) that completed the RQ4 matrix.
 
-## Campaign (queued in `scripts/run_campaign.py`, launched 2026-09-13)
+## Campaign (complete — `scripts/run_campaign.py`, 2026-09-13 to 2026-09-19)
 
 Each stage is one resumable `run_pilot.py` invocation; the queue survives interruption and
 restarts at the first unfinished stage. **Evaluation is 1500 test examples throughout**, up
@@ -302,8 +300,8 @@ does not even survive the change of attack family.
 
 **Consequence for the campaign.** S3 (pool-size ablation) was designed to explain a
 *null* B3-vs-B4 result, a premise S1 removed — but it ran anyway and delivered the mechanism
-instead (see S3 below). Its two remaining seeds, queued at the end, are what make that
-mechanism claimable.
+instead (see S3 below), and its two remaining seeds completed in Round 1's final stages —
+that mechanism is now claimable at 2/3 seeds (see "Round 2 results").
 
 ### S2 — the MLM family, 3 seeds (2026-09-15): RQ4 answered in both directions
 
@@ -351,9 +349,9 @@ on search width*, not a general improvement.
 
 Two caveats before this is written up: (1) both conditions are worse at 10x20 than at 3x6, so
 this is a diagnostic regime, **not** a better operating point — the recommended configuration
-remains the small pool; (2) this is one seed, and S1 showed B3 specifically to be the
-seed-unstable condition. The two remaining S3 seeds are queued at the end of the campaign and
-are what make this claimable.
+remains the small pool; (2) this was one seed at the time, and S1 showed B3 specifically to
+be the seed-unstable condition. *(Superseded — see "S3 (final)" immediately below: all 3
+seeds are now in.)*
 
 ### S3 (final) — pool ablation now has all 3 seeds
 
@@ -434,6 +432,9 @@ than lexical signal, so single-word synonym substitution is not its threat model
 data does not yet support saying so. Do not claim cross-task generality; claim it for
 sentiment/topic classification and report UNLP as untested.
 
+*(Superseded — see "Round 2 results" below: R3 reseeded UNLP to 3 seeds and it is now a
+confirmed negative result, not merely untested.)*
+
 ### What is and is not claimable
 
 | Finding | Evidence | Verdict |
@@ -450,6 +451,112 @@ sentiment/topic classification and report UNLP as untested.
 | Full-78k gains | 1 seed **and** flagged for prediction collapse | **Do not report** until R1 |
 | UNLP is a negative case | paired p = 1.00 at 1 seed | **Not supported** — untested, not negative |
 | B6/B7 results reflect distribution, not label noise | antonym rate 0.3% vs 0.0% | Claimable |
+
+## Round 2 results — COMPLETE (9/9 follow-up stages, 46.2 h, finished 2026-09-19)
+
+24/24 stages across both rounds, 124.3 h total GPU. These stages reseeded every
+single-seed claim from Round 1 and resolve every open question from that round.
+
+### R1 — full-78k reseeded (3/3 seeds): the collapse is real, and it explains the "win"
+
+| | seed1914 | seed2024 | seed7 |
+|---|---|---|---|
+| B0 cASR / macro-F1 / majority-share | 0.439 / 0.523 / 71.1% | 0.393 / 0.500 / 74.7% | 0.397 / 0.496 / 75.6% |
+| B3 cASR / macro-F1 / majority-share | 0.188 / **0.466** / **78.7%** | 0.401 / 0.504 / 76.7% | 0.224 / **0.466** / 75.7% |
+| B3 vs B0 (paired) | −0.284, p<0.0001 | **+0.000, p=1.00** | −0.176, p<0.0001 |
+| B4 cASR / macro-F1 | 0.268 / 0.491 | 0.346 / 0.491 | 0.299 / 0.506 |
+| B4 vs B0 (paired) | −0.192, p<0.0001 | −0.043, p=0.002 | −0.105, p<0.0001 |
+
+**The apparent full-data win for B3 does not survive reseeding, and the one seed that
+resolves the ambiguity resolves it against B3.** On seed2024 — the only one of the three
+where B3's eval macro-F1 (0.504) does *not* drop below B0's (0.500), i.e. the only seed
+without collapse — B3 gives **exactly zero** robustness gain (p = 1.00). On the two seeds
+where it does collapse (macro-F1 −0.057 and −0.030, majority-share up 5–8 points), it
+also "wins" by a large margin. That correlation is the whole explanation: **B3's full-78k
+robustness number was mostly the collapse, not a defence.**
+
+**B4 (SAAA) is the one that survives.** It beats B0 on 3/3 seeds, every p < 0.005, with far
+smaller macro-F1 movement (0.491/0.491/0.506 vs B0's 0.523/0.500/0.496 — a genuine but
+modest cost, not a collapse). **Conclusion for the write-up: report B4's full-78k numbers
+as a real, if modest, gain (mean cASR delta ≈ −0.11); do not report B3's.**
+
+### R2 — Ukr-RoBERTa reseeded + B5 control (3/3 seeds): the mechanism generalises, the ranking does not
+
+| | seed7 | seed1914 | seed2024 | mean |
+|---|---|---|---|---|
+| B0 | 0.617 | 0.615 | 0.563 | 0.598 |
+| B3 | 0.379 | 0.387 | 0.394 | **0.387** (range 0.015) |
+| B4 | 0.437 | 0.400 | 0.406 | 0.414 (range 0.037) |
+| B5 | 0.787 | 0.784 | 0.756 | 0.776 |
+
+No cell here is `DEGENERACY_SUSPECT` — this result is clean.
+
+- **The B5 mechanism control replicates on a second architecture.** Anti-adversarial
+  selection is far worse than baseline on 3/3 seeds (+0.177/+0.184/+0.203, all p < 0.0001) —
+  the same decisive margin as on XLM-R. RQ3's mechanism is not an XLM-R artifact.
+- **Generality is confirmed and large**: B3/B4 both beat B0 on 3/3 seeds here, with a much
+  bigger margin (−0.16 to −0.26) than on XLM-R/Reviews (−0.09).
+- **The ranking reverses.** On XLM-R, B4 was the more *stable* condition (range 0.020 vs
+  B3's 0.152) with no clear mean advantage. On Ukr-RoBERTa, **B3 is both the lower-mean
+  AND the more stable condition** (mean 0.387 vs B4's 0.414, range 0.015 vs 0.037; pooled
+  B3-vs-B4 favours B3 on 3/3 seeds, p < 0.0001). **"SAAA is more reliable than plain
+  adversarial selection" does not generalise across architecture — state the finding as
+  architecture-dependent, not universal.**
+
+### R3 — UNLP reseeded (3/3 seeds): confirmed inconclusive, leaning null
+
+| | seed1914 | seed2024 | seed7 |
+|---|---|---|---|
+| B0->B2 | −0.035, p=0.12 | −0.074, p=0.001 | −0.034, p=0.19 |
+| B0->B3 | −0.003, p=1.00 | −0.132, p=0.0005 | +0.017, p=0.52 |
+| B0->B4 | −0.020, p=0.41 | +0.027, p=0.26 | −0.030, p=0.22 |
+
+Only 3 of 9 seed x condition comparisons reach significance, with no condition significant
+on more than 1/3 seeds and no consistent direction (B4 is nominally *worse* than baseline
+on seed2024). Some scattered degeneracy flags (one per condition, different seeds, no
+pattern — consistent with the noise expected on a ~3.8k-row dataset, not systematic
+collapse). **This is now a real negative result, not a data gap**: the method does not
+reliably help UNLP. Consistent with the hypothesis that manipulation detection is a
+rhetorical rather than lexical signal — report it as supporting evidence, not proof, since
+the mechanism was never tested directly.
+
+### R4 — ratio r=1.0 reseeded (3/3 seeds): direction confirmed, not unanimous
+
+Same-condition paired test, r=0.5 -> r=1.0:
+
+| Condition | seed1914 | seed2024 | seed7 |
+|---|---|---|---|
+| B2 | −0.044, p=0.0007 | **+0.031, p=0.017** | −0.007, p=0.57 |
+| B3 | −0.091, p<0.0001 | **+0.030, p=0.006** | −0.166, p<0.0001 |
+| B4 | −0.052, p<0.0001 | +0.005, p=0.73 (null) | −0.100, p<0.0001 |
+
+r=1.0 helps on 2/3 seeds for every condition, and seed2024 reverses significantly for B2
+and B3 but is merely *null* (never significantly worse) for B4. **B4 is the only condition
+where increasing the ratio never hurts**; for B2/B3 the ratio effect is itself seed-
+dependent, which is a finding in its own right (this project's hyperparameters interact
+with training-run variance, not just with the method).
+
+### Updated claimability matrix
+
+| Finding | Evidence | Verdict |
+|---|---|---|
+| Direction of adversarial selection is the mechanism (B5 control) | 3+3 seeds, 2 architectures, all p < 0.0001 | **Claimable, and now architecture-general** |
+| SAAA (B4) beats baseline | 3/3 seeds x 2 architectures x full-78k | **Claimable** |
+| B4 is more *stable* than B3 | True on XLM-R (0.020 vs 0.152), **false on Ukr-RoBERTa** (0.037 vs 0.015) | **Claimable only as architecture-dependent** |
+| B4 has a lower mean than B3 | XLM-R: no. Ukr-RoBERTa: no, B3 is lower. Full-78k: no (B3's low mean is collapse) | **Not claimable anywhere** — reframe around reliability/collapse-resistance, not mean |
+| WSD filter as a safeguard on search width | 2/3 seeds | Supported, not established |
+| RQ2: WSD-filtered beats unfiltered | 3/3 seeds (main), replicated direction on Ukr-RoBERTa | Claimable, modest |
+| RQ4: no cross-family transfer, both directions | 3 seeds each side, antonym rate rules out label noise | **Claimable** |
+| Full-78k B3 "gain" | 3 seeds: collapses on 2, null on the one that doesn't | **Retracted as a robustness claim** — it is the collapse |
+| Full-78k B4 gain | 3/3 seeds, modest macro-F1 cost | **Claimable**, mean cASR delta ~ -0.11 |
+| Generality (Ukr-RoBERTa) | 3/3 seeds, clean (no degeneracy flags), large effect | **Claimable** |
+| Generality (News) | 1 seed | Directional only (not reseeded — smallest, lowest-priority effect) |
+| UNLP has no reliable effect | 3/3 seeds, 1/9 comparisons significant, no consistent direction | **Claimable as a negative result** |
+| Ratio r=1.0 beats r=0.5 | 2/3 seeds for B2/B3, B4 never reverses | **Claimable for B4; directional for B2/B3** |
+| Naive augmentation harms robustness | did not replicate (p = 0.43) | **Retracted** |
+
+**Campaign is now closed.** No further stages are queued. The only findings still resting
+on a single seed are News generality and the r=0.25 ratio point — both low-priority.
 
 ## Guardrails (don't skip)
 

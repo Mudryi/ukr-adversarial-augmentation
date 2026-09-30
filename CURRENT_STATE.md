@@ -121,12 +121,15 @@ listed "adversarial augmentation" only as a future Defense idea):
 | Robustness evaluation | `scripts/evaluate_robustness.py` | done — wraps `run_attack.py` for TF / WSD-TF / BERT-Attack |
 | macro-F1 / cASR / flip-rate + Wilson CIs + paired McNemar | `scripts/aggregate_results.py` | done — closes the §4 gap |
 | Resumable pilot orchestrator | `scripts/run_pilot.py` | done — per-step subprocess, skip-existing, baseline underfit guard, `--variant` for ablations |
-| Multi-stage campaign queue | `scripts/run_campaign.py` | done — 15 stages, resumable, optional checkpoint pruning |
-| Cross-seed aggregation | `scripts/aggregate_results.py` | done — per-seed cASR with range, pooled McNemar, single-seed cells flagged |
+| Multi-stage campaign queue | `scripts/run_campaign.py` | done — 24 stages across 2 rounds, resumable, optional checkpoint pruning |
+| Cross-seed aggregation | `scripts/aggregate_results.py` | done — per-seed cASR with range, pooled McNemar (scipy exact test above n=1000), degeneracy flag, single-seed cells flagged |
+| Label-noise diagnostic | `scripts/diagnose_augmentation.py` | done — known-antonym substitution rate per condition |
 
-**Still missing:** additional seeds for the single-seed stages (full-78k, ratio, generality) —
-those carry the largest effects but the weakest evidence. See `RESEARCH_PLAN.md` → "What is
-and is not claimable".
+**Nothing is missing at the priority levels this project set out to reach.** Every P0/P1 item
+is done and reseeded to 3 seeds (except News generality and the r=0.25 ratio point, both P1
+but explicitly deprioritized — see `RESEARCH_PLAN.md` → "Round 2 results"). What remains is
+P2 (MLM-based augmentation is already done as B6/B7; inference-time ensembling and a third
+architecture are not) and P3 (new annotation — still avoided per the original plan).
 
 ## 7. Stage-A pilot artifacts — [produced 2026-09-13]
 
@@ -154,31 +157,35 @@ Headline outcome is in `RESEARCH_PLAN.md` → "Stage-A results": sense filtering
 naive augmentation (RQ2), adversarial selection is the strongest condition (RQ3), SAAA is not
 better than plain adversarial selection, and nothing transfers to BERT-Attack (RQ4, negative).
 
-## 7b. Campaign artifacts — [COMPLETE, 2026-09-17]
+## 7b. Campaign artifacts — [COMPLETE, 2026-09-19 — no further stages queued]
 
-All 15 stages `ok`, 78.1 h GPU (under the ~100 h estimate), finished 2026-09-17 05:20.
+All 24 stages `ok` across two rounds (Round 1: 15 stages / 78.1 h; Round 2 follow-up: 9
+stages / 46.2 h), **124.3 h GPU total**, finished 2026-09-19 23:18.
 State in `results/campaign_manifest.json`; per-stage logs in `results/campaign_logs/`.
-`results/` is now ~27 GB; 115 GB free on the volume.
+`results/` is now ~33 GB; 107 GB free on the volume.
 
 | Path | Contents |
 |---|---|
 | `results/pilot_seed{1914,2024,7}/` | per-seed clean subsample, B0, augmented data for B1–B7, checkpoints |
-| `results/{textfooler,bert_attack}/<cell>/` | attack cells at n=1500; `<cell>` = `reviews__xlmr_base__B{0..7}__seed<S>[__<variant>][__wsd035]` |
-| `results/pilot_metrics.{md,csv}` | all cells: clean/adv accuracy, macro-F1, cASR + Wilson CI, flip rate |
-| `results/pilot_metrics_paired.csv` | every condition pair, per seed and variant, paired McNemar |
+| `results/pilot_full78k/`, `results/pilot_ukrroberta_reviews/`, `results/pilot_unlp/`, `results/pilot_news/` | Round 2 roots — each holds 3 seeds' worth of checkpoints/augmented data except News (1 seed, not reseeded) |
+| `results/{textfooler,bert_attack}/<cell>/` | attack cells at n=1500; `<cell>` = `<dataset>__<model>__B{0..7}__seed<S>[__<variant>][__wsd035]` |
+| `results/pilot_metrics.{md,csv}` | all cells: clean/adv accuracy, `eval_macro_f1` (trustworthy, full eval split), cASR + Wilson CI, flip rate, `majority_pred_share`, `degeneracy_flag` |
+| `results/pilot_metrics_paired.csv` | every condition pair, per seed and variant, paired McNemar (large-n cells use a scipy exact binomial test — see `scripts/aggregate_results.py:mcnemar`) |
 | `results/pilot_metrics_by_seed.md` | **the table that decides claims** — per-seed cASR with range, pooled McNemar, single-seed cells flagged |
-| `results/augmentation_diagnostic.md` | known-antonym substitution rate per condition (label-noise lower bound) |
+| `results/augmentation_diagnostic.md` | known-antonym substitution rate per condition (label-noise lower bound; 0.0% for B1–B5, 0.3% for B6/B7) |
 | `results/archive/stageA_pilot_n400/` | the superseded single-seed pilot (n=400) |
 
-Checkpoint count is growing (~1.1 GB each); `run_campaign.py --prune-checkpoints` drops the
-weights of any augmented condition whose three attack cells are already written, and stages
-S5/S6 prune by default. B0 checkpoints are never pruned — later stages score candidates
-against them.
+`run_campaign.py --prune-checkpoints` drops the weights of any augmented condition whose
+three attack cells are already written; most Round 2 stages prune by default. B0 checkpoints
+are never pruned — later stages score candidates against them.
 
-**Results so far are summarised in `RESEARCH_PLAN.md` → "Campaign results"**; the headline is
-that SAAA (B4) is the best and most stable condition, the anti-adversarial control (B5)
-confirms the mechanism, the pool ablation explains *why* sense filtering helps, and RQ4 is
-negative in both directions.
+**Final results are in `RESEARCH_PLAN.md` → "Round 2 results"**, which supersedes the
+earlier "Campaign results" section for anything the two disagree on (full-78k B3, UNLP, and
+the B4-vs-B3 stability ranking on Ukr-RoBERTa all changed between rounds). Headline: the B5
+mechanism control and SAAA's baseline-beating result both replicate on a second architecture;
+the full-78k B3 "win" is retracted as a collapse artifact while B4's survives; UNLP is now a
+confirmed negative result rather than a data gap; and "SAAA is more stable than plain
+adversarial selection" turned out to be XLM-R-specific, reversing on Ukr-RoBERTa.
 
 ## 8. Environment — [resolved 2026-09-13]
 

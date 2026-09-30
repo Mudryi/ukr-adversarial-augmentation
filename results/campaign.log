@@ -170,3 +170,35 @@
 [2026-09-19 18:32:39]   pruned reviews__xlmr_base__B4__seed2024__r1.0 (freed 1.1 GB)
 [2026-09-19 18:32:39] [24/24] START R4_ratio_r1.0_seed7 -- Augmentation ratio r=1.0 reseed, seed 7
 [2026-09-19 18:32:39]             log: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/campaign_logs/R4_ratio_r1.0_seed7.log
+[2026-09-19 23:18:37] [24/24] DONE  R4_ratio_r1.0_seed7 in 4.8 h
+[2026-09-19 23:18:37]   pruned reviews__xlmr_base__B2__seed7__r1.0 (freed 1.1 GB)
+[2026-09-19 23:18:38]   pruned reviews__xlmr_base__B3__seed7__r1.0 (freed 1.1 GB)
+[2026-09-19 23:18:38]   pruned reviews__xlmr_base__B4__seed7__r1.0 (freed 1.1 GB)
+[2026-09-19 23:18:38] ==============================================================================
+[2026-09-19 23:18:38] CAMPAIGN COMPLETE in 46.2 h
+[2026-09-19 23:18:38]   S1_main_seed1914: ok (4.4 h)
+[2026-09-19 23:18:38]   S1_main_seed2024: ok (7.6 h)
+[2026-09-19 23:18:38]   S1_main_seed7: ok (9.3 h)
+[2026-09-19 23:18:38]   S2_mlm_seed1914: ok (3.6 h)
+[2026-09-19 23:18:38]   S2_mlm_seed2024: ok (3.0 h)
+[2026-09-19 23:18:38]   S2_mlm_seed7: ok (3.0 h)
+[2026-09-19 23:18:38]   S3_pool_seed1914: ok (5.8 h)
+[2026-09-19 23:18:38]   S4_ratio_r0.25: ok (4.0 h)
+[2026-09-19 23:18:38]   S4_ratio_r1.0: ok (4.6 h)
+[2026-09-19 23:18:38]   S5_full78k: ok (7.2 h)
+[2026-09-19 23:18:38]   S6_scale_ukrroberta_reviews: ok (4.4 h)
+[2026-09-19 23:18:38]   S6_scale_news: ok (2.9 h)
+[2026-09-19 23:18:38]   S6_scale_unlp: ok (5.4 h)
+[2026-09-19 23:18:38]   S3_pool_seed2024: ok (5.9 h)
+[2026-09-19 23:18:38]   S3_pool_seed7: ok (6.8 h)
+[2026-09-19 23:18:38]   R1_full78k_seed2024: ok (7.1 h)
+[2026-09-19 23:18:38]   R1_full78k_seed7: ok (7.1 h)
+[2026-09-19 23:18:38]   R2_ukrroberta_B5_seed1914: ok (0.8 h)
+[2026-09-19 23:18:38]   R2_ukrroberta_seed2024: ok (5.4 h)
+[2026-09-19 23:18:38]   R2_ukrroberta_seed7: ok (5.2 h)
+[2026-09-19 23:18:38]   R3_unlp_seed2024: ok (5.4 h)
+[2026-09-19 23:18:38]   R3_unlp_seed7: ok (5.7 h)
+[2026-09-19 23:18:38]   R4_ratio_r1.0_seed2024: ok (4.7 h)
+[2026-09-19 23:18:38]   R4_ratio_r1.0_seed7: ok (4.8 h)
+[2026-09-19 23:18:38] manifest: /home/mudryi/phd_projects/ukr-adversarial-augmentation/results/campaign_manifest.json
+[2026-09-19 23:18:38] ==============================================================================

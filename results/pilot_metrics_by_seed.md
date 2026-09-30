@@ -32,9 +32,9 @@
 | bert_attack | reviews | xlmr_base | nan | r0.25 | B2 | 1 | 0.1656 | 0.1656 | 0.1656 | 0.0 |
 | bert_attack | reviews | xlmr_base | nan | r0.25 | B3 | 1 | 0.1246 | 0.1246 | 0.1246 | 0.0 |
 | bert_attack | reviews | xlmr_base | nan | r0.25 | B4 | 1 | 0.162 | 0.162 | 0.162 | 0.0 |
-| bert_attack | reviews | xlmr_base | nan | r1.0 | B2 | 2 | 0.168 | 0.1657 | 0.1703 | 0.0046 |
-| bert_attack | reviews | xlmr_base | nan | r1.0 | B3 | 2 | 0.1414 | 0.1251 | 0.1578 | 0.0327 |
-| bert_attack | reviews | xlmr_base | nan | r1.0 | B4 | 2 | 0.1582 | 0.1413 | 0.1751 | 0.0338 |
+| bert_attack | reviews | xlmr_base | nan | r1.0 | B2 | 3 | 0.1625 | 0.1515 | 0.1703 | 0.0188 |
+| bert_attack | reviews | xlmr_base | nan | r1.0 | B3 | 3 | 0.1445 | 0.1251 | 0.1578 | 0.0327 |
+| bert_attack | reviews | xlmr_base | nan | r1.0 | B4 | 3 | 0.147 | 0.1247 | 0.1751 | 0.0504 |
 | bert_attack | unlp | xlmr_base | nan |  | B0 | 3 | 0.1477 | 0.1291 | 0.1656 | 0.0365 |
 | bert_attack | unlp | xlmr_base | nan |  | B2 | 3 | 0.1168 | 0.1093 | 0.1238 | 0.0145 |
 | bert_attack | unlp | xlmr_base | nan |  | B3 | 3 | 0.1388 | 0.1174 | 0.162 | 0.0446 |
@@ -75,9 +75,9 @@
 | textfooler | reviews | xlmr_base | wsd035 | r0.25 | B2 | 1 | 0.3304 | 0.3304 | 0.3304 | 0.0 |
 | textfooler | reviews | xlmr_base | wsd035 | r0.25 | B3 | 1 | 0.2552 | 0.2552 | 0.2552 | 0.0 |
 | textfooler | reviews | xlmr_base | wsd035 | r0.25 | B4 | 1 | 0.2636 | 0.2636 | 0.2636 | 0.0 |
-| textfooler | reviews | xlmr_base | wsd035 | r1.0 | B2 | 2 | 0.324 | 0.3047 | 0.3434 | 0.0387 |
-| textfooler | reviews | xlmr_base | wsd035 | r1.0 | B3 | 2 | 0.2294 | 0.2114 | 0.2474 | 0.036 |
-| textfooler | reviews | xlmr_base | wsd035 | r1.0 | B4 | 2 | 0.2524 | 0.2373 | 0.2674 | 0.0301 |
+| textfooler | reviews | xlmr_base | wsd035 | r1.0 | B2 | 3 | 0.3179 | 0.3047 | 0.3434 | 0.0387 |
+| textfooler | reviews | xlmr_base | wsd035 | r1.0 | B3 | 3 | 0.2263 | 0.2114 | 0.2474 | 0.036 |
+| textfooler | reviews | xlmr_base | wsd035 | r1.0 | B4 | 3 | 0.2322 | 0.1918 | 0.2674 | 0.0756 |
 | textfooler | reviews | xlmr_base | nan |  | B0 | 3 | 0.3869 | 0.3628 | 0.4038 | 0.0411 |
 | textfooler | reviews | xlmr_base | nan |  | B1 | 3 | 0.3914 | 0.342 | 0.4314 | 0.0894 |
 | textfooler | reviews | xlmr_base | nan |  | B2 | 3 | 0.3615 | 0.3474 | 0.3839 | 0.0365 |
@@ -96,9 +96,9 @@
 | textfooler | reviews | xlmr_base | nan | r0.25 | B2 | 1 | 0.3496 | 0.3496 | 0.3496 | 0.0 |
 | textfooler | reviews | xlmr_base | nan | r0.25 | B3 | 1 | 0.2657 | 0.2657 | 0.2657 | 0.0 |
 | textfooler | reviews | xlmr_base | nan | r0.25 | B4 | 1 | 0.2793 | 0.2793 | 0.2793 | 0.0 |
-| textfooler | reviews | xlmr_base | nan | r1.0 | B2 | 2 | 0.3498 | 0.3226 | 0.377 | 0.0545 |
-| textfooler | reviews | xlmr_base | nan | r1.0 | B3 | 2 | 0.2484 | 0.2226 | 0.2741 | 0.0515 |
-| textfooler | reviews | xlmr_base | nan | r1.0 | B4 | 2 | 0.266 | 0.2507 | 0.2814 | 0.0307 |
+| textfooler | reviews | xlmr_base | nan | r1.0 | B2 | 3 | 0.3456 | 0.3226 | 0.377 | 0.0545 |
+| textfooler | reviews | xlmr_base | nan | r1.0 | B3 | 3 | 0.2433 | 0.2226 | 0.2741 | 0.0515 |
+| textfooler | reviews | xlmr_base | nan | r1.0 | B4 | 3 | 0.2448 | 0.2023 | 0.2814 | 0.0791 |
 | textfooler | unlp | xlmr_base | wsd035 |  | B0 | 3 | 0.3194 | 0.3091 | 0.3344 | 0.0252 |
 | textfooler | unlp | xlmr_base | wsd035 |  | B2 | 3 | 0.271 | 0.2381 | 0.3013 | 0.0632 |
 | textfooler | unlp | xlmr_base | wsd035 |  | B3 | 3 | 0.3116 | 0.2527 | 0.3458 | 0.0931 |
@@ -179,12 +179,12 @@
 | bert_attack | reviews | xlmr_base |  | r0.25 | B2 | B3 | 1 | 1 | 1105 | -0.0434 | 21 | 69 | 0.0 |
 | bert_attack | reviews | xlmr_base |  | r0.25 | B2 | B4 | 1 | 1 | 1101 | -0.0045 | 35 | 40 | 0.6445 |
 | bert_attack | reviews | xlmr_base |  | r0.25 | B3 | B4 | 1 | 1 | 1105 | 0.038 | 67 | 25 | 0.0 |
-| bert_attack | reviews | xlmr_base |  | r1.0 | B0 | B2 | 2 | 2 | 2186 | 0.022 | 113 | 65 | 0.0004 |
-| bert_attack | reviews | xlmr_base |  | r1.0 | B0 | B3 | 2 | 2 | 2186 | -0.0146 | 67 | 99 | 0.0159 |
-| bert_attack | reviews | xlmr_base |  | r1.0 | B0 | B4 | 2 | 2 | 2168 | 0.0129 | 97 | 69 | 0.0358 |
-| bert_attack | reviews | xlmr_base |  | r1.0 | B2 | B3 | 2 | 2 | 2165 | -0.0342 | 51 | 125 | 0.0 |
-| bert_attack | reviews | xlmr_base |  | r1.0 | B2 | B4 | 2 | 1 | 2171 | -0.0092 | 83 | 103 | 0.1634 |
-| bert_attack | reviews | xlmr_base |  | r1.0 | B3 | B4 | 2 | 2 | 2175 | 0.0276 | 115 | 55 | 0.0 |
+| bert_attack | reviews | xlmr_base |  | r1.0 | B0 | B2 | 3 | 3 | 3281 | 0.0247 | 172 | 91 | 0.0 |
+| bert_attack | reviews | xlmr_base |  | r1.0 | B0 | B3 | 3 | 2 | 3266 | -0.0018 | 121 | 127 | 0.7509 |
+| bert_attack | reviews | xlmr_base |  | r1.0 | B0 | B4 | 3 | 2 | 3266 | 0.0073 | 130 | 106 | 0.1342 |
+| bert_attack | reviews | xlmr_base |  | r1.0 | B2 | B3 | 3 | 3 | 3247 | -0.0253 | 84 | 166 | 0.0 |
+| bert_attack | reviews | xlmr_base |  | r1.0 | B2 | B4 | 3 | 2 | 3259 | -0.0156 | 115 | 166 | 0.0028 |
+| bert_attack | reviews | xlmr_base |  | r1.0 | B3 | B4 | 3 | 2 | 3262 | 0.0101 | 140 | 107 | 0.0415 |
 | bert_attack | unlp | xlmr_base |  |  | B0 | B2 | 3 | 3 | 888 | -0.0236 | 26 | 47 | 0.0186 |
 | bert_attack | unlp | xlmr_base |  |  | B0 | B3 | 3 | 2 | 856 | -0.0058 | 41 | 46 | 0.6683 |
 | bert_attack | unlp | xlmr_base |  |  | B0 | B4 | 3 | 3 | 892 | -0.0258 | 25 | 48 | 0.0095 |
@@ -269,12 +269,12 @@
 | textfooler | reviews | xlmr_base |  | r0.25 | B2 | B3 | 1 | 1 | 1105 | -0.0851 | 50 | 144 | 0.0 |
 | textfooler | reviews | xlmr_base |  | r0.25 | B2 | B4 | 1 | 1 | 1101 | -0.0736 | 52 | 133 | 0.0 |
 | textfooler | reviews | xlmr_base |  | r0.25 | B3 | B4 | 1 | 1 | 1105 | 0.0172 | 81 | 62 | 0.132 |
-| textfooler | reviews | xlmr_base |  | r1.0 | B0 | B2 | 2 | 2 | 2186 | -0.0522 | 160 | 274 | 0.0 |
-| textfooler | reviews | xlmr_base |  | r1.0 | B0 | B3 | 2 | 2 | 2186 | -0.1679 | 74 | 441 | 0.0 |
-| textfooler | reviews | xlmr_base |  | r1.0 | B0 | B4 | 2 | 2 | 2168 | -0.1356 | 82 | 376 | 0.0 |
-| textfooler | reviews | xlmr_base |  | r1.0 | B2 | B3 | 2 | 2 | 2165 | -0.1178 | 75 | 330 | 0.0 |
-| textfooler | reviews | xlmr_base |  | r1.0 | B2 | B4 | 2 | 2 | 2171 | -0.0834 | 91 | 272 | 0.0 |
-| textfooler | reviews | xlmr_base |  | r1.0 | B3 | B4 | 2 | 2 | 2175 | 0.0317 | 183 | 114 | 0.0001 |
+| textfooler | reviews | xlmr_base |  | r1.0 | B0 | B2 | 3 | 3 | 3281 | -0.0415 | 251 | 387 | 0.0 |
+| textfooler | reviews | xlmr_base |  | r1.0 | B0 | B3 | 3 | 3 | 3266 | -0.158 | 114 | 630 | 0.0 |
+| textfooler | reviews | xlmr_base |  | r1.0 | B0 | B4 | 3 | 3 | 3266 | -0.1461 | 105 | 582 | 0.0 |
+| textfooler | reviews | xlmr_base |  | r1.0 | B2 | B3 | 3 | 3 | 3247 | -0.1155 | 108 | 483 | 0.0 |
+| textfooler | reviews | xlmr_base |  | r1.0 | B2 | B4 | 3 | 3 | 3259 | -0.1025 | 119 | 453 | 0.0 |
+| textfooler | reviews | xlmr_base |  | r1.0 | B3 | B4 | 3 | 2 | 3262 | 0.0113 | 239 | 202 | 0.0864 |
 | textfooler | reviews | xlmr_base | wsd035 |  | B0 | B1 | 3 | 2 | 3273 | 0.0031 | 313 | 303 | 0.7169 |
 | textfooler | reviews | xlmr_base | wsd035 |  | B0 | B2 | 3 | 3 | 3288 | -0.0353 | 229 | 345 | 0.0 |
 | textfooler | reviews | xlmr_base | wsd035 |  | B0 | B3 | 3 | 2 | 3284 | -0.0682 | 226 | 450 | 0.0 |
@@ -321,12 +321,12 @@
 | textfooler | reviews | xlmr_base | wsd035 | r0.25 | B2 | B3 | 1 | 1 | 1105 | -0.0778 | 46 | 132 | 0.0 |
 | textfooler | reviews | xlmr_base | wsd035 | r0.25 | B2 | B4 | 1 | 1 | 1101 | -0.069 | 47 | 123 | 0.0 |
 | textfooler | reviews | xlmr_base | wsd035 | r0.25 | B3 | B4 | 1 | 1 | 1105 | 0.0118 | 67 | 54 | 0.2753 |
-| textfooler | reviews | xlmr_base | wsd035 | r1.0 | B0 | B2 | 2 | 2 | 2186 | -0.0558 | 157 | 279 | 0.0 |
-| textfooler | reviews | xlmr_base | wsd035 | r1.0 | B0 | B3 | 2 | 2 | 2186 | -0.1656 | 66 | 428 | 0.0 |
-| textfooler | reviews | xlmr_base | wsd035 | r1.0 | B0 | B4 | 2 | 2 | 2168 | -0.1273 | 79 | 355 | 0.0 |
-| textfooler | reviews | xlmr_base | wsd035 | r1.0 | B2 | B3 | 2 | 2 | 2165 | -0.1122 | 68 | 311 | 0.0 |
-| textfooler | reviews | xlmr_base | wsd035 | r1.0 | B2 | B4 | 2 | 2 | 2171 | -0.0709 | 90 | 244 | 0.0 |
-| textfooler | reviews | xlmr_base | wsd035 | r1.0 | B3 | B4 | 2 | 2 | 2175 | 0.0382 | 186 | 103 | 0.0 |
+| textfooler | reviews | xlmr_base | wsd035 | r1.0 | B0 | B2 | 3 | 3 | 3281 | -0.0445 | 241 | 387 | 0.0 |
+| textfooler | reviews | xlmr_base | wsd035 | r1.0 | B0 | B3 | 3 | 3 | 3266 | -0.1503 | 104 | 595 | 0.0 |
+| textfooler | reviews | xlmr_base | wsd035 | r1.0 | B0 | B4 | 3 | 3 | 3266 | -0.1326 | 105 | 538 | 0.0 |
+| textfooler | reviews | xlmr_base | wsd035 | r1.0 | B2 | B3 | 3 | 3 | 3247 | -0.105 | 104 | 445 | 0.0 |
+| textfooler | reviews | xlmr_base | wsd035 | r1.0 | B2 | B4 | 3 | 3 | 3259 | -0.0862 | 122 | 403 | 0.0 |
+| textfooler | reviews | xlmr_base | wsd035 | r1.0 | B3 | B4 | 3 | 2 | 3262 | 0.0172 | 238 | 182 | 0.0072 |
 | textfooler | unlp | xlmr_base |  |  | B0 | B2 | 3 | 3 | 888 | -0.0484 | 43 | 86 | 0.0002 |
 | textfooler | unlp | xlmr_base |  |  | B0 | B3 | 3 | 2 | 856 | -0.0362 | 74 | 105 | 0.0247 |
 | textfooler | unlp | xlmr_base |  |  | B0 | B4 | 3 | 2 | 892 | -0.0078 | 55 | 62 | 0.5793 |

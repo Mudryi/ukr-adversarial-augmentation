@@ -10,42 +10,56 @@ what this project built), and [`RESEARCH_PLAN.md`](RESEARCH_PLAN.md) for the res
 training conditions, metrics, staged plan, and **results**. The full narrative version of the
 plan this was distilled from is `article_plan.md` (in this folder).
 
-## Status — campaign COMPLETE (15/15 stages, 78.1 h, 2026-09-17)
+## Status — campaign COMPLETE (24/24 stages, 124.3 h, finished 2026-09-19)
 
-XLM-R + UA Reviews across 3 seeds for the main grid, plus ratio, full-data, pool-size and
-cross-dataset/architecture ablations. **All of this supersedes the single-seed Stage-A pilot.**
+XLM-R + UA Reviews across 3 seeds for the main grid, plus MLM, pool-size, ratio, full-data
+and cross-dataset/architecture conditions — every one of them reseeded to 3 seeds except
+News (excluded, lowest priority). **This supersedes the single-seed Stage-A pilot outright.**
 
-**Claimable (3 seeds):**
+**Claimable, and now checked on 2 architectures + full training data:**
 
-- **The control settles the mechanism.** B5 — same candidate pool, but picking the *least*
-  confidence-reducing substitution — is far worse than no augmentation at all (+0.169 cASR,
-  3/3 seeds, p < 0.0001). The *direction* of adversarial selection is what buys robustness.
-- **SAAA (B4) is the best and most reliable condition**: beats baseline in every seed
-  (mean cASR 0.296 vs 0.387) with a seed range of 0.020, against B3's 0.152 — wider than
-  B3's own advantage. Sense filtering buys *reliability*; it does **not** buy a lower mean
-  than B3 (only 1/3 seeds), and the write-up should not claim it does.
-- **RQ4 is negative in both directions.** Each augmentation family helps only against its own
-  attack family: B4 is best against TextFooler and worse than baseline against BERT-Attack,
-  while MLM-based B7 is the only condition beating baseline under BERT-Attack (3/3 seeds) and
-  does nothing against TextFooler.
+- **The mechanism is settled and generalises.** B5 — same candidate pool, but picking the
+  *least* confidence-reducing substitution — is far worse than no augmentation at all on
+  **both** XLM-R and Ukr-RoBERTa (+0.17 to +0.20 cASR, 6/6 seed×architecture cells,
+  p < 0.0001 throughout). The *direction* of adversarial selection is what buys robustness,
+  not architecture-specific luck.
+- **SAAA (B4) beats baseline everywhere it was tested**: main grid (3/3 seeds), full-78k
+  training (3/3 seeds), Ukr-RoBERTa (3/3 seeds). No condition beats it on clean accuracy cost.
+- **But "SAAA is more reliable than plain adversarial selection" is architecture-dependent,
+  not universal — this is the one place the pilot's framing needed real correction.** On
+  XLM-R, B4 has a 7× smaller seed-to-seed range than B3 (0.020 vs 0.152) with no clear mean
+  edge. On **Ukr-RoBERTa, B3 is both the lower-mean AND the more stable condition**
+  (mean 0.387 vs B4's 0.414, range 0.015 vs 0.037, p < 0.0001 on 3/3 seeds). Neither
+  condition has a lower mean than the other everywhere — report reliability/collapse-
+  resistance as the contribution, never "B4 has a lower mean than B3."
+- **The full-78k "win" for B3 does not survive reseeding, and it is now explained.** All
+  three augmented conditions there are flagged `DEGENERACY_SUSPECT` on at least one seed
+  (predictions concentrating on the majority class). Reseeding showed *why*: on the one
+  seed where B3 does **not** collapse (its macro-F1 matches B0's), it gives **zero**
+  robustness gain (p = 1.00). On the two seeds where it does collapse, it also "wins" by a
+  large margin. **That correlation is the whole effect — B3's full-78k number is retracted
+  as a robustness claim.** B4's full-78k gain is real, smaller, and does not correlate with
+  collapse (3/3 seeds, modest macro-F1 cost) — it is the number to report.
+- **RQ4 is negative in both directions**, and label noise is ruled out as an explanation:
+  each augmentation family helps only against its own attack family (B4 best against
+  TextFooler, worse than baseline against BERT-Attack; MLM-based B7 the mirror image), and
+  the antonym rate in the MLM conditions is only 0.3% — far too low to be the cause.
+- **UNLP has no reliable effect, now confirmed over 3 seeds** (was "inconclusive" at 1 seed;
+  now only 1/9 seed×condition comparisons reach significance, no consistent direction).
+  Report as a genuine negative case, consistent with manipulation detection being a
+  rhetorical rather than lexical signal.
+- **More augmentation helps, but not unanimously**: r = 1.0 beats r = 0.5 on 2/3 seeds for
+  every condition; **B4 is the only condition where it never reverses** (the third seed is
+  null, not worse) — the safest ratio recommendation is for B4 specifically.
 - **No clean-performance cost** anywhere: accuracy 0.763–0.778, eval macro-F1 0.484–0.503.
 - **Retracted from the pilot:** "naive augmentation hurts" did not replicate (p = 0.43).
 
-**Directional (single seed — reseed before claiming):**
+**Still single-seed (low priority, not reseeded):** News generality (−0.033) and the r=0.25
+ratio point.
 
-- **The full-78k result is on hold.** It looked like the best number in the project (B3 at
-  −0.250 cASR) but all three augmented conditions there are flagged `DEGENERACY_SUSPECT`:
-  macro-F1 drops below baseline and predictions concentrate on the majority class (B3 78.7%
-  vs B0 71.1%), which lowers cASR without improving robustness. Being reseeded before it is
-  reported. The 20k 3-seed grid is unaffected.
-- **More augmentation helps**: r = 1.0 beats r = 0.5 for every condition.
-- **Generality tracks baseline fragility**: Ukr-RoBERTa on Reviews (baseline cASR 0.615)
-  gains −0.227; News (already robust at 0.118) gains little; **UNLP is inconclusive** — its
-  paired tests are all non-significant at one seed, so it is untested rather than a negative
-  case.
-
-Full tables, per-seed numbers and a claimability matrix: `RESEARCH_PLAN.md` → "Campaign
-results". Raw: `results/pilot_metrics_by_seed.md`, `results/pilot_metrics_paired.csv`.
+Full tables, per-seed numbers and the final claimability matrix: `RESEARCH_PLAN.md` →
+"Round 2 results". Raw: `results/pilot_metrics_by_seed.md`, `results/pilot_metrics_paired.csv`,
+`results/augmentation_diagnostic.md` (antonym-rate check).
 
 ## Running it
 

@@ -90,6 +90,8 @@ Derived from `examples.jsonl` per-row data; not present in `ukr-synonym-robustne
 | textfooler | reviews | xlmr_base | B2 | 7 |  |  | 1500 | 0.772 | 0.5026 | 0.4993 | 0.2727 | 0.3532 | 0.2727 | 0.7413 |  |
 | textfooler | reviews | xlmr_base | B2 | 7 | full78k |  | 1500 | 0.7627 | 0.5135 | 0.4707 | 0.292 | 0.3829 | 0.292 | 0.7333 |  |
 | textfooler | reviews | xlmr_base | B2 | 7 | full78k | wsd035 | 1500 | 0.7627 | 0.5135 | 0.4987 | 0.264 | 0.3462 | 0.264 | 0.7333 |  |
+| textfooler | reviews | xlmr_base | B2 | 7 | r1.0 |  | 1500 | 0.7613 | 0.4955 | 0.5047 | 0.2567 | 0.3371 | 0.2567 | 0.752 |  |
+| textfooler | reviews | xlmr_base | B2 | 7 | r1.0 | wsd035 | 1500 | 0.7613 | 0.4955 | 0.5287 | 0.2327 | 0.3056 | 0.2327 | 0.752 |  |
 | textfooler | reviews | xlmr_base | B2 | 7 |  | wsd035 | 1500 | 0.772 | 0.5026 | 0.5213 | 0.2507 | 0.3247 | 0.2507 | 0.7413 |  |
 | textfooler | reviews | xlmr_base | B3 | 1914 |  |  | 1500 | 0.762 | 0.503 | 0.5307 | 0.2313 | 0.3036 | 0.2313 | 0.7167 |  |
 | textfooler | reviews | xlmr_base | B3 | 1914 | full78k |  | 1500 | 0.7747 | 0.4656 | 0.6287 | 0.146 | 0.1885 | 0.146 | 0.7873 | DEGENERACY_SUSPECT(-0.057) |
@@ -114,6 +116,8 @@ Derived from `examples.jsonl` per-row data; not present in `ukr-synonym-robustne
 | textfooler | reviews | xlmr_base | B3 | 7 | full78k | wsd035 | 1500 | 0.768 | 0.4663 | 0.61 | 0.158 | 0.2057 | 0.158 | 0.7567 | DEGENERACY_SUSPECT(-0.030) |
 | textfooler | reviews | xlmr_base | B3 | 7 | pool10x20 |  | 1500 | 0.7627 | 0.4862 | 0.5067 | 0.256 | 0.3357 | 0.256 | 0.7547 |  |
 | textfooler | reviews | xlmr_base | B3 | 7 | pool10x20 | wsd035 | 1500 | 0.7627 | 0.4862 | 0.5127 | 0.25 | 0.3278 | 0.25 | 0.7547 |  |
+| textfooler | reviews | xlmr_base | B3 | 7 | r1.0 |  | 1500 | 0.7607 | 0.5018 | 0.5833 | 0.1773 | 0.2331 | 0.1773 | 0.748 |  |
+| textfooler | reviews | xlmr_base | B3 | 7 | r1.0 | wsd035 | 1500 | 0.7607 | 0.5018 | 0.5933 | 0.1673 | 0.22 | 0.1673 | 0.748 |  |
 | textfooler | reviews | xlmr_base | B3 | 7 |  | wsd035 | 1500 | 0.7627 | 0.5017 | 0.48 | 0.2827 | 0.3706 | 0.2827 | 0.7507 |  |
 | textfooler | reviews | xlmr_base | B4 | 1914 |  |  | 1500 | 0.7613 | 0.494 | 0.53 | 0.2313 | 0.3039 | 0.2313 | 0.724 |  |
 | textfooler | reviews | xlmr_base | B4 | 1914 | full78k |  | 1500 | 0.7673 | 0.4909 | 0.5613 | 0.206 | 0.2685 | 0.206 | 0.7673 | DEGENERACY_SUSPECT(-0.032) |
@@ -138,6 +142,8 @@ Derived from `examples.jsonl` per-row data; not present in `ukr-synonym-robustne
 | textfooler | reviews | xlmr_base | B4 | 7 | full78k | wsd035 | 1500 | 0.7733 | 0.5058 | 0.5487 | 0.2247 | 0.2905 | 0.2247 | 0.766 |  |
 | textfooler | reviews | xlmr_base | B4 | 7 | pool10x20 |  | 1500 | 0.7687 | 0.4909 | 0.5873 | 0.1813 | 0.2359 | 0.1813 | 0.768 |  |
 | textfooler | reviews | xlmr_base | B4 | 7 | pool10x20 | wsd035 | 1500 | 0.7687 | 0.4909 | 0.604 | 0.1647 | 0.2142 | 0.1647 | 0.768 |  |
+| textfooler | reviews | xlmr_base | B4 | 7 | r1.0 |  | 1500 | 0.7647 | 0.4903 | 0.61 | 0.1547 | 0.2023 | 0.1547 | 0.7787 |  |
+| textfooler | reviews | xlmr_base | B4 | 7 | r1.0 | wsd035 | 1500 | 0.7647 | 0.4903 | 0.618 | 0.1467 | 0.1918 | 0.1467 | 0.7787 |  |
 | textfooler | reviews | xlmr_base | B4 | 7 |  | wsd035 | 1500 | 0.766 | 0.497 | 0.546 | 0.22 | 0.2872 | 0.22 | 0.7593 |  |
 | textfooler | reviews | xlmr_base | B5 | 1914 |  |  | 1500 | 0.7487 | 0.5 | 0.2987 | 0.45 | 0.6011 | 0.45 | 0.7027 |  |
 | textfooler | reviews | xlmr_base | B5 | 1914 | pool10x20 |  | 1500 | 0.7547 | 0.5119 | 0.284 | 0.4707 | 0.6237 | 0.4707 | 0.706 |  |
@@ -224,6 +230,7 @@ Derived from `examples.jsonl` per-row data; not present in `ukr-synonym-robustne
 | bert_attack | reviews | xlmr_base | B2 | 2024 | r1.0 |  | 1500 | 0.7727 | 0.5104 | 0.6447 | 0.128 | 0.1657 | 0.128 | 0.752 |  |
 | bert_attack | reviews | xlmr_base | B2 | 7 |  |  | 1500 | 0.772 | 0.5026 | 0.6427 | 0.1293 | 0.1675 | 0.1293 | 0.7413 |  |
 | bert_attack | reviews | xlmr_base | B2 | 7 | full78k |  | 1500 | 0.7627 | 0.5135 | 0.6413 | 0.1213 | 0.1591 | 0.1213 | 0.7333 |  |
+| bert_attack | reviews | xlmr_base | B2 | 7 | r1.0 |  | 1500 | 0.7613 | 0.4955 | 0.646 | 0.1153 | 0.1515 | 0.1153 | 0.752 |  |
 | bert_attack | reviews | xlmr_base | B3 | 1914 |  |  | 1500 | 0.762 | 0.503 | 0.6307 | 0.1313 | 0.1724 | 0.1313 | 0.7167 |  |
 | bert_attack | reviews | xlmr_base | B3 | 1914 | full78k |  | 1500 | 0.7747 | 0.4656 | 0.6993 | 0.0753 | 0.0972 | 0.0753 | 0.7873 | DEGENERACY_SUSPECT(-0.057) |
 | bert_attack | reviews | xlmr_base | B3 | 1914 | pool10x20 |  | 1500 | 0.748 | 0.4989 | 0.6293 | 0.1187 | 0.1586 | 0.1187 | 0.7167 |  |
@@ -236,6 +243,7 @@ Derived from `examples.jsonl` per-row data; not present in `ukr-synonym-robustne
 | bert_attack | reviews | xlmr_base | B3 | 7 |  |  | 1500 | 0.7627 | 0.5017 | 0.6487 | 0.114 | 0.1495 | 0.114 | 0.7507 |  |
 | bert_attack | reviews | xlmr_base | B3 | 7 | full78k |  | 1500 | 0.768 | 0.4663 | 0.678 | 0.09 | 0.1172 | 0.09 | 0.7567 | DEGENERACY_SUSPECT(-0.030) |
 | bert_attack | reviews | xlmr_base | B3 | 7 | pool10x20 |  | 1500 | 0.7627 | 0.4862 | 0.6613 | 0.1013 | 0.1329 | 0.1013 | 0.7547 |  |
+| bert_attack | reviews | xlmr_base | B3 | 7 | r1.0 |  | 1500 | 0.7607 | 0.5018 | 0.646 | 0.1147 | 0.1507 | 0.1147 | 0.748 |  |
 | bert_attack | reviews | xlmr_base | B4 | 1914 |  |  | 1500 | 0.7613 | 0.494 | 0.6373 | 0.124 | 0.1629 | 0.124 | 0.724 |  |
 | bert_attack | reviews | xlmr_base | B4 | 1914 | full78k |  | 1500 | 0.7673 | 0.4909 | 0.6747 | 0.0927 | 0.1208 | 0.0927 | 0.7673 | DEGENERACY_SUSPECT(-0.032) |
 | bert_attack | reviews | xlmr_base | B4 | 1914 | pool10x20 |  | 1500 | 0.7493 | 0.4908 | 0.6407 | 0.1087 | 0.145 | 0.1087 | 0.7333 |  |
@@ -248,6 +256,7 @@ Derived from `examples.jsonl` per-row data; not present in `ukr-synonym-robustne
 | bert_attack | reviews | xlmr_base | B4 | 7 |  |  | 1500 | 0.766 | 0.497 | 0.6487 | 0.1173 | 0.1532 | 0.1173 | 0.7593 |  |
 | bert_attack | reviews | xlmr_base | B4 | 7 | full78k |  | 1500 | 0.7733 | 0.5058 | 0.67 | 0.1033 | 0.1336 | 0.1033 | 0.766 |  |
 | bert_attack | reviews | xlmr_base | B4 | 7 | pool10x20 |  | 1500 | 0.7687 | 0.4909 | 0.6733 | 0.0953 | 0.124 | 0.0953 | 0.768 |  |
+| bert_attack | reviews | xlmr_base | B4 | 7 | r1.0 |  | 1500 | 0.7647 | 0.4903 | 0.6693 | 0.0953 | 0.1247 | 0.0953 | 0.7787 |  |
 | bert_attack | reviews | xlmr_base | B5 | 1914 |  |  | 1500 | 0.7487 | 0.5 | 0.5827 | 0.166 | 0.2217 | 0.166 | 0.7027 |  |
 | bert_attack | reviews | xlmr_base | B5 | 1914 | pool10x20 |  | 1500 | 0.7547 | 0.5119 | 0.5793 | 0.1753 | 0.2323 | 0.1753 | 0.706 |  |
 | bert_attack | reviews | xlmr_base | B5 | 2024 |  |  | 1500 | 0.7747 | 0.4956 | 0.6373 | 0.1373 | 0.1773 | 0.1373 | 0.7507 |  |
@@ -453,6 +462,12 @@ Restricted to examples BOTH models classify correctly when clean. `casr_delta` <
 | bert_attack | reviews | xlmr_base |  | 7 | pool10x20 | B3 | B4 | 1092 | 0.1044 | 0.1016 | -0.0027 | 38 | 41 | 0.8221 |
 | bert_attack | reviews | xlmr_base |  | 7 | pool10x20 | B3 | B5 | 1074 | 0.1052 | 0.1713 | 0.0661 | 91 | 20 | 0.0 |
 | bert_attack | reviews | xlmr_base |  | 7 | pool10x20 | B4 | B5 | 1081 | 0.0944 | 0.1674 | 0.0731 | 93 | 14 | 0.0 |
+| bert_attack | reviews | xlmr_base |  | 7 | r1.0 | B0 | B2 | 1095 | 0.0959 | 0.126 | 0.0301 | 59 | 26 | 0.0004 |
+| bert_attack | reviews | xlmr_base |  | 7 | r1.0 | B0 | B3 | 1080 | 0.0954 | 0.1194 | 0.0241 | 54 | 28 | 0.0054 |
+| bert_attack | reviews | xlmr_base |  | 7 | r1.0 | B0 | B4 | 1098 | 0.1011 | 0.0974 | -0.0036 | 33 | 37 | 0.7202 |
+| bert_attack | reviews | xlmr_base |  | 7 | r1.0 | B2 | B3 | 1082 | 0.1266 | 0.1192 | -0.0074 | 33 | 41 | 0.416 |
+| bert_attack | reviews | xlmr_base |  | 7 | r1.0 | B2 | B4 | 1088 | 0.1268 | 0.0983 | -0.0285 | 32 | 63 | 0.0019 |
+| bert_attack | reviews | xlmr_base |  | 7 | r1.0 | B3 | B4 | 1087 | 0.1242 | 0.0994 | -0.0248 | 25 | 52 | 0.0028 |
 | bert_attack | unlp | xlmr_base |  | 1914 |  | B0 | B2 | 287 | 0.1045 | 0.0836 | -0.0209 | 8 | 14 | 0.2863 |
 | bert_attack | unlp | xlmr_base |  | 1914 |  | B0 | B3 | 288 | 0.1181 | 0.0972 | -0.0208 | 7 | 13 | 0.2632 |
 | bert_attack | unlp | xlmr_base |  | 1914 |  | B0 | B4 | 296 | 0.1182 | 0.098 | -0.0203 | 8 | 14 | 0.2863 |
@@ -681,6 +696,12 @@ Restricted to examples BOTH models classify correctly when clean. `casr_delta` <
 | textfooler | reviews | xlmr_base | wsd035 | 7 | pool10x20 | B3 | B4 | 1092 | 0.304 | 0.1859 | -0.1181 | 59 | 188 | 0.0 |
 | textfooler | reviews | xlmr_base | wsd035 | 7 | pool10x20 | B3 | B5 | 1074 | 0.2998 | 0.54 | 0.2402 | 287 | 29 | 0.0 |
 | textfooler | reviews | xlmr_base | wsd035 | 7 | pool10x20 | B4 | B5 | 1081 | 0.1859 | 0.5439 | 0.358 | 398 | 11 | 0.0 |
+| textfooler | reviews | xlmr_base | wsd035 | 7 | r1.0 | B0 | B2 | 1095 | 0.305 | 0.2831 | -0.0219 | 84 | 108 | 0.0967 |
+| textfooler | reviews | xlmr_base | wsd035 | 7 | r1.0 | B0 | B3 | 1080 | 0.3037 | 0.1843 | -0.1194 | 38 | 167 | 0.0 |
+| textfooler | reviews | xlmr_base | wsd035 | 7 | r1.0 | B0 | B4 | 1098 | 0.3097 | 0.1667 | -0.143 | 26 | 183 | 0.0 |
+| textfooler | reviews | xlmr_base | wsd035 | 7 | r1.0 | B2 | B3 | 1082 | 0.281 | 0.1904 | -0.0906 | 36 | 134 | 0.0 |
+| textfooler | reviews | xlmr_base | wsd035 | 7 | r1.0 | B2 | B4 | 1088 | 0.2849 | 0.1682 | -0.1167 | 32 | 159 | 0.0 |
+| textfooler | reviews | xlmr_base | wsd035 | 7 | r1.0 | B3 | B4 | 1087 | 0.1914 | 0.1665 | -0.0248 | 52 | 79 | 0.0227 |
 | textfooler | reviews | xlmr_base |  | 1914 |  | B0 | B1 | 1077 | 0.3668 | 0.4169 | 0.0501 | 142 | 88 | 0.0004 |
 | textfooler | reviews | xlmr_base |  | 1914 |  | B0 | B2 | 1087 | 0.3726 | 0.356 | -0.0166 | 94 | 112 | 0.2362 |
 | textfooler | reviews | xlmr_base |  | 1914 |  | B0 | B3 | 1088 | 0.3722 | 0.2776 | -0.0947 | 52 | 155 | 0.0 |
@@ -819,6 +840,12 @@ Restricted to examples BOTH models classify correctly when clean. `casr_delta` <
 | textfooler | reviews | xlmr_base |  | 7 | pool10x20 | B3 | B4 | 1092 | 0.3123 | 0.207 | -0.1053 | 60 | 175 | 0.0 |
 | textfooler | reviews | xlmr_base |  | 7 | pool10x20 | B3 | B5 | 1074 | 0.3073 | 0.5605 | 0.2533 | 301 | 29 | 0.0 |
 | textfooler | reviews | xlmr_base |  | 7 | pool10x20 | B4 | B5 | 1081 | 0.2054 | 0.5643 | 0.3589 | 401 | 13 | 0.0 |
+| textfooler | reviews | xlmr_base |  | 7 | r1.0 | B0 | B2 | 1095 | 0.337 | 0.3169 | -0.0201 | 91 | 113 | 0.1413 |
+| textfooler | reviews | xlmr_base |  | 7 | r1.0 | B0 | B3 | 1080 | 0.3352 | 0.1972 | -0.138 | 40 | 189 | 0.0 |
+| textfooler | reviews | xlmr_base |  | 7 | r1.0 | B0 | B4 | 1098 | 0.3424 | 0.1758 | -0.1667 | 23 | 206 | 0.0 |
+| textfooler | reviews | xlmr_base |  | 7 | r1.0 | B2 | B3 | 1082 | 0.3152 | 0.2043 | -0.1109 | 33 | 153 | 0.0 |
+| textfooler | reviews | xlmr_base |  | 7 | r1.0 | B2 | B4 | 1088 | 0.318 | 0.1774 | -0.1406 | 28 | 181 | 0.0 |
+| textfooler | reviews | xlmr_base |  | 7 | r1.0 | B3 | B4 | 1087 | 0.2042 | 0.1748 | -0.0294 | 56 | 88 | 0.0095 |
 | textfooler | unlp | xlmr_base | wsd035 | 1914 |  | B0 | B2 | 287 | 0.3031 | 0.2648 | -0.0383 | 9 | 20 | 0.0614 |
 | textfooler | unlp | xlmr_base | wsd035 | 1914 |  | B0 | B3 | 288 | 0.3056 | 0.3021 | -0.0035 | 23 | 24 | 1.0 |
 | textfooler | unlp | xlmr_base | wsd035 | 1914 |  | B0 | B4 | 296 | 0.3041 | 0.277 | -0.027 | 14 | 22 | 0.243 |

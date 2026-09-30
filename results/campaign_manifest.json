@@ -563,7 +563,33 @@
         "--conditions",
         "B2,B3,B4"
       ]
+    },
+    "R4_ratio_r1.0_seed7": {
+      "status": "ok",
+      "returncode": 0,
+      "minutes": 286.0,
+      "finished": "2026-09-19T23:18:37.826779",
+      "argv": [
+        "--dataset",
+        "reviews",
+        "--model",
+        "xlmr_base",
+        "--eval-n",
+        "1500",
+        "--num-epochs",
+        "4",
+        "--seed",
+        "7",
+        "--pilot-root",
+        "results/pilot_seed7",
+        "--variant",
+        "r1.0",
+        "--ratio",
+        "1.0",
+        "--conditions",
+        "B2,B3,B4"
+      ]
     }
   },
-  "updated": "2026-09-19T18:32:38.581674"
+  "updated": "2026-09-19T23:18:37.827665"
 }
